@@ -1,0 +1,36 @@
+﻿@model TAiMStore.Model.ViewModels.MasterPageModel
+
+@{
+    ViewBag.Title = "Типы оплаты";
+}
+
+<h2>Оплаты</h2>
+<table>
+    <tr>
+        <td>Наименования типа</td>
+        <td>Редактировать</td>
+        <td>Удалить</td>
+    </tr>
+    @foreach (var payment in Model.Payments)
+    {
+        <tr>
+            <td>@payment.PaymentMethod</td>
+            <td>
+                @using (Html.BeginForm("PaymentEdit", "Admin", FormMethod.Get, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.Hidden("paymentId", payment.Id)
+                    <input type="submit" value="Редактировать" class="button blue"/>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("PaymentDelete", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.Hidden("paymentId", payment.Id)
+                    <input type="submit" onclick = "return confirm('Вы действительно хотите удалить категорию?');" value="Удалить" class="button blue"/>
+                }
+            </td>
+        </tr>
+    }
+</table>
+<br />
+@Html.ActionLink("Добавить", "PaymentAdd", "Admin")

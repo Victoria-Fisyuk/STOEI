@@ -1,0 +1,45 @@
+﻿@using TAiMStore.Model.ViewModels
+@model UserViewModel
+
+@{
+    ViewBag.Title = "Регистрация пользователя";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    <table>
+        <tr>
+            <td><label>Логин</label></td>
+            <td>@Html.TextBox("userName", "")</td>
+        </tr>
+        <tr>
+            <td><label>Пароль</label></td>
+            <td>@Html.Password("Password", "")</td>
+        </tr>
+        <tr>
+            <td><label>Подтвердите пароль</label></td>
+            <td>@Html.Password("ConfirmPassword", "")</td>
+        </tr>
+        <tr>
+            <td><label>E-mail</label></td>
+            <td>@Html.TextBox("Email", "")</td>
+        </tr>
+        <tr>
+            <td>
+                <label>Введите код </label>
+                <img src='@Url.Action("Captcha", "Account")' alt='captcha' />
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Captcha)
+                </div>
+        </tr>
+    </table>
+    <br />
+    <div>
+        <input type="submit" value="Зарегистрироваться" class="button blue" />
+    </div>
+
+}
+
+

@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TAIMStore.Domain", "TAIMStore.Domain", "{2C385500-2139-498F-A20F-96E1D03B4475}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TAIMStore.WEb", "TAIMStore.WEb", "{444EC506-8691-45BF-8979-6106AC818B11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TAIMStore.Test", "TAIMStore.Test", "{78611FC6-851C-4AE9-A913-7219FC53D51C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAiMStore.Entities", "TAiMStore.Domain\TAiMStore.Entities.csproj", "{3DFBE8BB-7B51-42E8-9303-3FDBBA590497}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAiMStore.Model", "TAiMStore.Model\TAiMStore.Model.csproj", "{32379D2B-F0DB-42F6-AAE6-117FFBE30F53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAiMStore.WebUI", "TAiMStore\TAiMStore.WebUI.csproj", "{781B8BEC-3F49-4ABF-8CA1-EC73FDF65A9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TAiMStore.UnitTests", "TAiMStore.UnitTests\TAiMStore.UnitTests.csproj", "{8F4F7586-B5F0-4849-95BB-D26B3380F680}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DFBE8BB-7B51-42E8-9303-3FDBBA590497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DFBE8BB-7B51-42E8-9303-3FDBBA590497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DFBE8BB-7B51-42E8-9303-3FDBBA590497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DFBE8BB-7B51-42E8-9303-3FDBBA590497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32379D2B-F0DB-42F6-AAE6-117FFBE30F53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32379D2B-F0DB-42F6-AAE6-117FFBE30F53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32379D2B-F0DB-42F6-AAE6-117FFBE30F53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32379D2B-F0DB-42F6-AAE6-117FFBE30F53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{781B8BEC-3F49-4ABF-8CA1-EC73FDF65A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{781B8BEC-3F49-4ABF-8CA1-EC73FDF65A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{781B8BEC-3F49-4ABF-8CA1-EC73FDF65A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{781B8BEC-3F49-4ABF-8CA1-EC73FDF65A9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F4F7586-B5F0-4849-95BB-D26B3380F680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F4F7586-B5F0-4849-95BB-D26B3380F680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F4F7586-B5F0-4849-95BB-D26B3380F680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F4F7586-B5F0-4849-95BB-D26B3380F680}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DFBE8BB-7B51-42E8-9303-3FDBBA590497} = {2C385500-2139-498F-A20F-96E1D03B4475}
+		{32379D2B-F0DB-42F6-AAE6-117FFBE30F53} = {2C385500-2139-498F-A20F-96E1D03B4475}
+		{781B8BEC-3F49-4ABF-8CA1-EC73FDF65A9B} = {444EC506-8691-45BF-8979-6106AC818B11}
+		{8F4F7586-B5F0-4849-95BB-D26B3380F680} = {78611FC6-851C-4AE9-A913-7219FC53D51C}
+	EndGlobalSection
+EndGlobal

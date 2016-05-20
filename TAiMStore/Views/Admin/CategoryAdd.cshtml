@@ -1,0 +1,22 @@
+﻿@model TAiMStore.Model.ViewModels.MasterPageModel
+
+@{
+    ViewBag.Title = "Добавление Категории";
+}
+
+<h2>Добавление Категории</h2>
+
+@using (Html.BeginForm("CategoryAdd", "Admin", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <table>
+        <tr>
+            <td>Наименование категории</td>
+        </tr>
+        <tr>
+            <td class="padded">
+                @Html.TextBox("categoryName", Model.Category.CategoryName)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Добавить" class="button blue"/>
+}

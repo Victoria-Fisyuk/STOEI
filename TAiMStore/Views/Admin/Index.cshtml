@@ -1,0 +1,53 @@
+﻿@model TAiMStore.Model.ViewModels.MasterPageModel
+
+@{
+    ViewBag.Title = "Товары";
+}
+
+<h1>Товары</h1>
+@{
+    var categories = new List<SelectListItem>();
+    foreach (var item in Model.ProductsViewModel.Products)
+    {
+        var tmp = new SelectListItem();
+        tmp.Value = item.Category.ToLower();
+        tmp.Text = item.Category.ToLower();
+        if (!categories.Exists(c => c.Value == tmp.Value)) { categories.Add(tmp); }
+    }
+    <b>Категории:</b>
+    using (Html.BeginForm("SortedList", "Admin"))
+    {
+    <div class="four fifths padded">
+        @Html.DropDownList("category", categories)
+    </div>  
+    <div class="one fifths padded">
+        <input type="submit" value=">" class="button blue" />
+    </div>
+    }
+}
+<table class="Grid">
+    <tr>
+        <th>ID</th>
+        <th>Наименование</th>
+        <th>Категория</th>
+        <th class="NumericCol">Цена</th>
+        <th>Действие</th>
+    </tr>
+    @foreach (var item in Model.ProductsViewModel.Products)
+    { 
+        <tr>
+            <td>@item.Id</td>
+            <td>@Html.ActionLink(item.Name, "Edit", new { item.Id })</td>
+            <td>@item.Category.ToLower()</td>
+            <td class="NumericCol">@item.Price.ToString("c")</td>
+            <td>
+                @using (Html.BeginForm("Delete", "Admin"))
+                { 
+                    @Html.Hidden("ProductID", item.Id)
+                    <input type="submit" value="Delete" onclick = "return confirm('Вы действительно хотите удалить товар?');" class="button blue" /> 
+                }
+            </td>
+        </tr> 
+    }
+</table>
+<p>@Html.ActionLink("Добавить новый товар", "Create")</p>

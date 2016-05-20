@@ -1,0 +1,19 @@
+﻿@model Dictionary<TAiMStore.Model.ViewModels.CategoryViewModel, double>
+
+@Html.Label("Меню категорий")
+
+@foreach (var link in Model)
+{
+    
+    @Html.RouteLink(link.Key.CategoryName, new
+    {
+        controller = "Product",
+        action = "List",
+        category = link.Key.CategoryName,
+        page = 1
+    }, new
+    {
+        @class ="btn btn-block btn-default btn"
+        + (link.Key.CategoryName == ViewBag.SelectedCategory ? " btn-primary" : "")
+     })
+}

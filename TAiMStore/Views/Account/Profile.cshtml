@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Профиль пользователя";
+}
+@model TAiMStore.Model.ViewModels.MasterPageModel
+<h2>Профиль пользователя</h2>
+
+@if (Model.ProfileView == null)
+{
+    <div>Информация профиля отсутсвует.
+        <br/>
+        Перейдите по ссылки и заполните необходимые поля. В дальнейшем эта информация будет использоваться для оформления заказа.
+        <br />
+        @Html.ActionLink("Добавление информации", "ProfileAdd", "Account")
+    </div>
+}
+else
+{
+    <table>
+        <tr>
+            <td>Ф.И.О.</td>
+            <td>@Html.Label(Model.ProfileView.PersonFullName)</td>
+        </tr>
+        <tr>
+            <td>Организация</td>
+            <td>@Html.Label(Model.ProfileView.Organization)</td>
+        </tr>
+        <tr>
+            <td>Почтовый индекс</td>
+            <td>@Html.Label(Model.ProfileView.PostZip)</td>
+        </tr>
+        <tr>
+            <td>Город</td>
+            <td>@Html.Label(Model.ProfileView.City)</td>
+        </tr>
+        <tr>
+            <td>Улица</td>
+            <td>@Html.Label(Model.ProfileView.Street)</td>
+        </tr>
+        <tr>
+            <td>Дом</td>
+            <td>@Html.Label(Model.ProfileView.House)</td>
+        </tr>
+        <tr>
+            <td>Квартира(оффис)</td>
+            <td>@Html.Label(Model.ProfileView.Room)</td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td>@Html.Label(Model.ProfileView.Telephone)</td>
+        </tr>
+        <tr>
+            <td>E-mail</td>
+            <td>@Html.Raw(Model.ProfileView.Email)</td>
+        </tr>
+    </table>
+    @Html.ActionLink("Редактировать", "ProfileEdit")
+}
+
+@section UserMenu
+{
+    <br /> <h4>Меню Пользователя</h4>
+    <nav role="menu" class="small-tablet nav vertical menu charcoal">
+        @Html.ActionLink("Профиль", "Profile", "Account")
+        @Html.ActionLink("Смена Пароля", "ChangePassword", "Account")
+    </nav>
+}

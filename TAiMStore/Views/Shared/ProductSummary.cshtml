@@ -1,0 +1,26 @@
+﻿<div class="well">
+    @if (Model.ImageData != null)
+    {
+        <div class="pull-left" style="margin-right: 10px">
+            <img class="img-thumbnail" width="75" height="75"
+                 src="@Url.Action("GetImage", "Product",
+                new { Model.Id })" />
+        </div>
+    }
+    <h3>
+        <strong>@Model.Name</strong>
+        <span class="pull-right label label-primary">@Model.Price.ToString(",#. руб ## коп")</span>
+    </h3>
+    @using (Html.BeginForm("AddToCart", "Cart", new { Id = @Model.Id }))
+    {
+        <div class="pull-right">
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <input type="submit" class="btn btn-success" value="Добавить в корзину" />
+        </div>
+    }
+    <span class="lead">
+        <p>@Model.Description</p>
+        <a class="about-prod" href="@ViewBag.URL/Product/Detail/@Model.Id">Подробнее &gt;&gt;</a>
+    </span>
+
+</div>

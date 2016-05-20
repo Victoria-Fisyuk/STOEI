@@ -1,0 +1,57 @@
+﻿@model TAiMStore.Model.ViewModels.MasterPageModel
+
+@{
+    ViewBag.Title = "Подробее о товаре" + @Model.ProductView.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+    <tr>
+        <td>
+            <label>Товар</label>
+        </td>
+        <td>@Html.Label("name", Model.ProductView.Name)</td>
+        <div> 
+            @using (Html.BeginForm("AddToCart", "Cart", new { Id = @Model.ProductView.Id }))
+            {
+                <div class="pull-right">
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <input type="submit" class="btn btn-success" value="Добавить в корзину" />
+                </div>
+            }
+        </div>
+    </tr>
+    <tr>
+        <td>
+            <label>Описание</label>
+        </td>
+        <td>@Html.Label("Description", Model.ProductView.Description)</td>
+    </tr>
+    <tr>
+        <td>
+            <label>Подробное описание</label>
+        </td>
+        <td>@Html.Label("DescriptionSecond", Model.ProductView.DescriptionSecond)</td>
+    </tr>
+    <tr>
+        <td>
+            <label>Цена</label>
+        </td>
+        <td>@Html.Label("Price", Model.ProductView.Price.ToString("#. руб # коп."))</td>
+    </tr>
+    <tr>
+        <td>
+            @if (Model.ProductView.ImageData != null)
+            {
+                <div class="pull-left" style="margin-right: 10px">
+                    <img class="img-thumbnail" width="75" height="75"
+                         src="@Url.Action("GetImage", "Product",
+                new { Model.ProductView.Id })" />
+                </div>
+            } else
+            { 
+                <tr>НЕТ картинки</tr>
+            }
+         </td>
+     </tr>
+</table>

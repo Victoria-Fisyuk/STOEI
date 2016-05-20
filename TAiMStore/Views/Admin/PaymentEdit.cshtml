@@ -1,0 +1,23 @@
+﻿@model TAiMStore.Model.ViewModels.MasterPageModel
+@{
+    ViewBag.Title = "Редактирование";
+}
+
+
+<h2>Редактирование @Model.Payment.PaymentMethod</h2>
+
+@using (Html.BeginForm("PaymentEdit", "Admin", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <table>
+        <tr>
+            <td>Тип оплаты</td>
+        </tr>
+        <tr>
+            <td class="padded">
+                @Html.Hidden("paymentId", Model.Payment.Id)
+                @Html.TextBox("paymentName", Model.Payment.PaymentMethod)
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Сохранить" class="button blue"/>
+}

@@ -1,0 +1,37 @@
+﻿@model TAiMStore.Model.ViewModels.MasterPageModel
+
+@{
+    ViewBag.Title = "Заказы";
+}
+
+<h1>Товары</h1>
+
+<table class="Grid">
+    <tr>
+        <th>ID</th>
+        <th>Имя пользователя</th>
+        <th class="NumericCol">Общая Цена</th>
+        <th>Дата заказа</th>
+        <th>Тип оплаты</th>
+        <th>Действие</th>
+    </tr>
+    @foreach (var item in Model.OrdersViewModel.Orders)
+    {
+        <tr>
+            <td>@item.Id
+            @*@HTML.ActionLink(item.Id, "Edit", "")*@</td>
+            <td>@item.UserName - @item.eMail</td>
+            <td>@item.TotalCost.ToString("C")</td>
+            <td>@item.CreateDate</td>
+            <td>@item.PaymentType</td>
+            
+            <td>
+                @using (Html.BeginForm("DeleteOrder", "Admin"))
+                {
+                    @Html.Hidden("orderId", item.Id)
+                    <input type="submit" value="Delete" onclick="return confirm('Вы действительно хотите удалить данный заказ?');" class="button blue" />
+                }
+            </td>
+        </tr>
+    }
+</table>

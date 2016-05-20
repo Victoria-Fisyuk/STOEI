@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Пользователи";
+}
+@model TAiMStore.Model.ViewModels.MasterPageModel
+<h2>Пользователи</h2>
+
+<table>
+    <tr>
+        <td>Имя</td>
+        <td>E-mail</td>
+        <td>Статус активации</td>
+        <td>Роль</td>
+        <td></td>
+        <td></td>
+    </tr>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Name</td>
+            <td>@user.Email</td>
+            
+            @using (Html.BeginForm("EditUser", "Admin"))
+            {
+                <td>
+                    @if (user.isActivate != null && user.isActivate != false)
+                    {
+                        @Html.Hidden("isActivate", true)
+                        <input type="checkbox" checked="checked" disabled="disabled" />
+                    }
+                    else
+                    {
+                        @Html.CheckBox("isActivate", false)
+                    }
+                </td>
+                    <td>@Html.DropDownList("roles", user.Roles)</td>
+                        @Html.Hidden("userId", user.Id)
+                    <td><input type="submit" value="Сохранить" class="button blue" /></td>
+            }
+            <td>
+                @using (Html.BeginForm("DeleteUser", "Admin"))
+                { 
+                    @Html.Hidden("userId", user.Id)
+                    <input type="submit" onclick = "return confirm('Вы действительно хотите удалить пользователя?');" value="Удалить" class="button blue" /> 
+                }
+            </td>
+        </tr>
+    }
+</table>
+<br />

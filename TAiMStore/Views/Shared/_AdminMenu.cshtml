@@ -1,0 +1,11 @@
+﻿@using TAiMStore.Model
+@model TAiMStore.Model.ViewModels.MasterPageModel
+
+@Html.ActionLink("Товары", "Index", "Admin")
+@Html.ActionLink("Категории", "Categories", "Admin")
+@Html.ActionLink("Типы оплаты", "Payments", "Admin")
+@Html.ActionLink("Заказы", "OrderList", "Admin")
+@if (Model.UserRole == @ConstantStrings.AdministratorRole)
+{
+    @Html.ActionLink("Пользователи", "Users", "Admin")
+}
