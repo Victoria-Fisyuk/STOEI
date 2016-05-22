@@ -129,6 +129,7 @@
     <Compile Include="Configs\AutofacConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CaptchaController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -182,6 +183,7 @@
     <Content Include="Views\Admin\OrderList.cshtml" />
     <Content Include="Views\Admin\OrderDetail.cshtml" />
     <Content Include="Views\Admin\OrderEdit.cshtml" />
+    <Content Include="Views\Shared\_Captcha.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

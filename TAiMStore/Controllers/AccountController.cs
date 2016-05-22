@@ -108,7 +108,7 @@ namespace TAiMStore.Controllers
         {
             FormsAuthentication.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("List", "Product");
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -336,7 +336,7 @@ namespace TAiMStore.Controllers
 
             if (!Captcha.VerifyAndExpireSolution(context, captcha, attempt))
             {
-                ModelState.AddModelError("captcha", "Неверно указан код от автоматической регистрации.");
+                ModelState.AddModelError("captcha", "Неверно введены символы");
             }
 
             if (string.IsNullOrEmpty(email))
@@ -345,9 +345,9 @@ namespace TAiMStore.Controllers
             }
             else
             {
-                if (email.Length > 30)
+                if (email.Length > 20)
                 {
-                    ModelState.AddModelError("email", "E-Mail должен содержать не более 30 символов.");
+                    ModelState.AddModelError("email", "E-Mail должен содержать не более 20 символов.");
                 }
                 if (!Regex.IsMatch(email, @"^([0-9a-zA-Z]([-\.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$"))
                 {
@@ -375,7 +375,7 @@ namespace TAiMStore.Controllers
         }
         #endregion
 
-        #region Private metods
+        #region Initilaze
         private void InitializeUsersRoles(MasterPageModel masterViewModel, UserManager manager)
         {
             masterViewModel.Users = manager.GetUsers();

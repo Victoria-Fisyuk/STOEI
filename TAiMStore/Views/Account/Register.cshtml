@@ -1,10 +1,8 @@
-﻿@using TAiMStore.Model.ViewModels
-@model UserViewModel
-
-@{
-    ViewBag.Title = "Регистрация пользователя";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "Register";
 }
+@using TAiMStore.HtmlHelpers
+@model TAiMStore.Model.ViewModels.MasterPageModel
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
 {
@@ -29,10 +27,12 @@
         <tr>
             <td>
                 <label>Введите код </label>
-                <img src='@Url.Action("Captcha", "Account")' alt='captcha' />
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Captcha)
-                </div>
+            </td>
+            <td>@Html.TextBox("attempt", "")</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>@Html.Raw(Html.CaptchaHlp("myCaptcha", 42, 140))</td>
         </tr>
     </table>
     <br />
@@ -41,5 +41,7 @@
     </div>
 
 }
-
-
+@section Title
+{
+    Регистрация
+}
