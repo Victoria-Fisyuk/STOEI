@@ -44,19 +44,8 @@ namespace TAiMStore.Controllers
             var model = manager.GetProducts(category, page, PageSize);
             var masterModel = new MasterPageModel();
             masterModel.ProductsViewModel = model;
-
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                var user = userManager.GetUserViewModelByName(HttpContext.User.Identity.Name);
-                var userRole = string.Empty;
-                if (userManager.UserIsInRole(user.Name, ConstantStrings.AdministratorRole) ||
-                    userManager.UserIsInRole(user.Name, ConstantStrings.ModeratorRole))
-                    userRole = ConstantStrings.AdministratorRole;
-                else userRole = ConstantStrings.CustomerRole;
-                masterModel.UserModel = user;
-                masterModel.UserRole = userRole;
-            }
+            InitializeUsersRoles(masterModel, userManager);
 
             return View(masterModel);
         }
@@ -68,18 +57,10 @@ namespace TAiMStore.Controllers
             var manager = new ProductManager(_repository);
             var masterModel = new MasterPageModel();
             masterModel.ProductView = manager.GetProduct(Id);
+
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                var user = userManager.GetUserViewModelByName(HttpContext.User.Identity.Name);
-                var userRole = string.Empty;
-                if (userManager.UserIsInRole(user.Name, ConstantStrings.AdministratorRole) ||
-                    userManager.UserIsInRole(user.Name, ConstantStrings.ModeratorRole))
-                    userRole = ConstantStrings.AdministratorRole;
-                else userRole = ConstantStrings.CustomerRole;
-                masterModel.UserModel = user;
-                masterModel.UserRole = userRole;
-            }
+            InitializeUsersRoles(masterModel, userManager);
+
             return View(masterModel);
         }
 
@@ -91,5 +72,24 @@ namespace TAiMStore.Controllers
             if (image != null) return image;
             return null;
         }
+
+        #region Initilaze
+        private void InitializeUsersRoles(MasterPageModel masterViewModel, UserManager manager)
+        {
+            masterViewModel.Users = manager.GetUsers();
+
+            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var user = userManager.GetUserViewModelByName(HttpContext.User.Identity.Name);
+                var userRole = string.Empty;
+                if (userManager.UserIsInRole(user.Name, ConstantStrings.AdministratorRole) ||
+                    userManager.UserIsInRole(user.Name, ConstantStrings.ModeratorRole))
+                    userRole = ConstantStrings.AdministratorRole;
+                masterViewModel.UserModel = user;
+                masterViewModel.UserRole = userRole;
+            }
+        }
+        #endregion
     }
 }

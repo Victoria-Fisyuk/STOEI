@@ -185,6 +185,7 @@
     <Content Include="Views\Admin\OrderEdit.cshtml" />
     <Content Include="Views\Shared\_Captcha.cshtml" />
     <Content Include="Views\Cart\Error.cshtml" />
+    <Content Include="Views\Cart\CartSummary.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

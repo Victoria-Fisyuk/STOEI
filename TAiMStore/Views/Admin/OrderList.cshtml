@@ -4,12 +4,13 @@
     ViewBag.Title = "Заказы";
 }
 
-<h1>Товары</h1>
+<h1>Список заказов</h1>
 
 <table class="Grid">
     <tr>
         <th>ID</th>
         <th>Имя пользователя</th>
+        <th>Email</th>
         <th class="NumericCol">Общая Цена</th>
         <th>Дата заказа</th>
         <th>Тип оплаты</th>
@@ -20,11 +21,11 @@
         <tr>
             <td>@item.Id
             @*@HTML.ActionLink(item.Id, "Edit", "")*@</td>
-            <td>@item.UserName - @item.eMail</td>
+            <td>@item.UserName</td>
+            <td> @item.eMail</td>
             <td>@item.TotalCost.ToString("C")</td>
             <td>@item.CreateDate</td>
             <td>@item.PaymentType</td>
-            
             <td>
                 @using (Html.BeginForm("DeleteOrder", "Admin"))
                 {
