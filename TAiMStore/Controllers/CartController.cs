@@ -21,7 +21,6 @@ namespace TAiMStore.WebUI.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderProductRepository _orderProductRepository;
-        //private IOrderProcessor _orderProcessor;
 
         public CartController(IProductRepository productRepository, ICategoryRepository categoryRepository, IUserRepository userRepository,
             IPaymentRepository paymentRepository, IRoleRepository roleRepository, IContactsRepository contactsRepository,

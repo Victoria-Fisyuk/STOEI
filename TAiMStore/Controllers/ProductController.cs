@@ -73,7 +73,14 @@ namespace TAiMStore.Controllers
             return null;
         }
 
-        #region Initilaze
+        
+        #region Initilaze user private method
+        /// <summary>
+        /// Инициализация авторизации пользователя
+        /// </summary>
+        /// <param name="masterViewModel"></param>
+        /// <param name="UserManager"></param>
+        /// <returns>Модель содержащая авторизованного пользователя </returns>
         private void InitializeUsersRoles(MasterPageModel masterViewModel, UserManager manager)
         {
             masterViewModel.Users = manager.GetUsers();

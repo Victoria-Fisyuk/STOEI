@@ -13,34 +13,7 @@
 <body>
     <header>
         <div class="navbar navbar-inverse" role="navigation">
-            <a class="navbar-brand" href="#">Интернет-магазин @ConstantStrings.NameCompany</a>
-            @if (@Model != null && @Model.UserModel != null)
-            {
-            <div class="three eighths"></div>
-            <div class="two eighths bounceInDown animated box square charcoal" style="box-shadow: grey 1px 1px 1px 1px; text-align: center;">
-                @if (Model.UserModel.Name != null)
-                {
-
-                    <table>
-                        <tr>@Html.Label(Model.UserModel.Name)</tr>
-                        <tr>
-                            <td class="charcoal">@Html.ActionLink("Профиль", "Profile", "Account")</td>
-                            @if (Model.UserRole != string.Empty && Model.UserRole == ConstantStrings.AdministratorRole)
-                            {
-                                <td class="charcoal">@Html.ActionLink("Панель управления", "Index", "Admin")</td>
-                            }
-                            @if (Model.UserRole != string.Empty && Model.UserRole == ConstantStrings.CustomerRole)
-                            {
-                                <td class="charcoal">@Html.Action("Summary", "Cart")</td>
-                                <td class="charcoal">@Html.ActionLink("История заказов", "??", "??")</td>
-                            }
-                            <td class="charcoal">@Html.ActionLink("Выйти", "LogOff", "Account")</td>
-                        </tr>
-                    </table>
-                }
-            </div>
-            <div class="three eighths"></div>
-            }     
+            <a class="navbar-brand" href="#">Интернет-магазин @ConstantStrings.NameCompany</a>    
         </div>
     </header>
     <nav class="navbar navbar-default" role="navigation">
@@ -62,7 +35,7 @@
                         </div>
                         <div class="navbar-form navbar-left">
                             <div class="form-group">
-                                <input class="form-control" placeholder="Пароль" @Html.Password("Password", "")>
+                                <input class="form-control" placeholder="Пароль" @Html.Password("Password", "")
                             </div>
                             <button type="submit" class="btn btn-default">Отправить</button>
                         </div>
