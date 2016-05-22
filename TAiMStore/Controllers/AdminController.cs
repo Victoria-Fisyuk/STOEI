@@ -100,6 +100,9 @@ namespace TAiMStore.WebUI.Controllers
             var masterViewModel = new MasterPageModel();
             var viewModel = new ProductViewModel();
             if (product == null) _create = true;
+            {
+                viewModel.EntityToProductViewModel(product);
+            }
             masterViewModel.ProductView = viewModel;
             var manager = new CategoryManager(_categoryRepository, _unitOfWork);
             masterViewModel.CategoriesForDropDown = manager.GetCategoriesForDropDown();
