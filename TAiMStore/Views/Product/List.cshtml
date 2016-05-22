@@ -6,9 +6,9 @@
     ViewBag.Title = "Товары";
 }
 
-@foreach (var p in Model.ProductsViewModel.Products)
+@foreach (var product in Model.ProductsViewModel.Products)
 {
-    @Html.Partial("ProductSummary",p)
+    @Html.Partial("ProductSummary",product)
 }
 
 <center>

@@ -66,12 +66,15 @@ namespace TAiMStore.WebUI.Controllers
         public RedirectToRouteResult AddToCart(int Id, string returnUrl)
         {
             Product product = _repository.GetById(Id);
-
-            if (product != null)
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                GetCart().AddItem(product, 1);
-            }
-            return RedirectToAction("Index", new { returnUrl });
+                if (product != null)
+                {
+                    GetCart().AddItem(product, 1);
+                }
+                return RedirectToAction("Index", new { returnUrl });
+            } 
+            else  return RedirectToAction("Error", new { returnUrl });
         }
 
         public RedirectToRouteResult RemoveFromCart(int Id, string returnUrl)
@@ -104,6 +107,11 @@ namespace TAiMStore.WebUI.Controllers
                 shipingManager.CheckOut(lines, paymentType, totalCost, user);
             }
             return RedirectToAction("List", "Product"); ;
+        }
+
+        public ActionResult Error()
+        {
+            return View("Error");
         }
 
         public Cart GetCart()

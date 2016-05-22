@@ -11,15 +11,18 @@
             <label>Товар</label>
         </td>
         <td>@Html.Label("name", Model.ProductView.Name)</td>
-        <div> 
-            @using (Html.BeginForm("AddToCart", "Cart", new { Id = @Model.ProductView.Id }))
+            @if (@Model != null && @Model.UserModel != null)
             {
-                <div class="pull-right">
-                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                    <input type="submit" class="btn btn-success" value="Добавить в корзину" />
+                <div>
+                @using (Html.BeginForm("AddToCart", "Cart", new { Id = @Model.ProductView.Id }))
+                {
+                        <div class="pull-right">
+                            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                            <input type="submit" class="btn btn-success" value="Добавить в корзину" />
+                        </div>
+                }   
                 </div>
             }
-        </div>
     </tr>
     <tr>
         <td>
