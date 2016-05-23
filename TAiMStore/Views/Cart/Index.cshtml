@@ -51,7 +51,7 @@
 </table>
 
 <div class="text-center">
-    <a class="btn btn-primary" href="@Model.ReturnUrl">Продолжить покупки</a>
+    <a class="btn btn-primary" href="@Model.CartView.ReturnUrl">Продолжить покупки</a>
     @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
     {
         @Html.Hidden("paymentType", "тестовая");
