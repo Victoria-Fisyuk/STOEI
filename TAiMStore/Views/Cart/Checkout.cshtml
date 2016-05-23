@@ -1,35 +1,74 @@
-﻿@model TAiMStore.Model.ViewModels.ShippingDetails
+﻿@model TAiMStore.Model.ViewModels.MasterPageModel
 
 @{
     ViewBag.Title = "Форма предватрительного заказа";
 }
 
 <h2>Оформить заказ сейчас</h2>
-<p>Пожалуйста введи ваши контактные данные, и мы сразу отправим товар!</p>
 
 
-@using (Html.BeginForm())
+@if (Model.ProfileView == null)
 {
-    @Html.ValidationSummary();
-    <h3>Данные</h3>
-    <div class="form-group">
-        <label>Ваше имя:</label>
-        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-    </div>
-
-    <h3>Адрес доставки</h3>
-    foreach (var property in ViewData.ModelMetadata.Properties)
-    {
-        if (property.PropertyName != "Name" && property.PropertyName != "GiftWrap")
-        {
-            <div class="form-group">
-                <label>@(property.DisplayName ?? property.PropertyName)</label>
-                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
-            </div>
-        }
-    }
-
-    <div class="text-center">
-        <input class="btn btn-primary" type="submit" value="Обработать заказ" />
+    <div>
+        Информация профиля отсутсвует.
+        <br />
+        <p>Пожалуйста введи ваши контактные данные, и мы сразу отправим товар!</p>
+        Перейдите по ссылки и заполните необходимые поля.
+        <br />
+        @Html.ActionLink("Добавление информации", "ProfileAdd", "Account")
     </div>
 }
+else
+{
+    <table width="500" class="table table-striped">
+        <tbody>
+            <tr>
+                <td width="10">Ф.И.О.</td>
+                <td>@Html.Label(Model.ProfileView.PersonFullName)</td>
+            </tr>
+            <tr>
+                <td>Организация</td>
+                <td>@Html.Label(Model.ProfileView.Organization)</td>
+            </tr>
+            <tr>
+                <td>Почтовый индекс</td>
+                <td>@Html.Label(Model.ProfileView.PostZip)</td>
+            </tr>
+            <tr>
+                <td>Город</td>
+                <td>@Html.Label(Model.ProfileView.City)</td>
+            </tr>
+            <tr>
+                <td>Улица</td>
+                <td>@Html.Label(Model.ProfileView.Street)</td>
+            </tr>
+            <tr>
+                <td>Дом</td>
+                <td>@Html.Label(Model.ProfileView.House)</td>
+            </tr>
+            <tr>
+                <td>Квартира(оффис)</td>
+                <td>@Html.Label(Model.ProfileView.Room)</td>
+            </tr>
+            <tr>
+                <td>Телефон</td>
+                <td>@Html.Label(Model.ProfileView.Telephone)</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>@Html.Raw(Model.ProfileView.Email)</td>
+            </tr>
+        <tbody>
+    </table>
+}
+@using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
+{ 
+    @Html.DropDownList("paymentType", Model.PaymentsForDropDown);
+    @Html.Hidden("totalCost", @Model.CartView.Cart.ComputeTotalValue());
+    <input type="submit" value="Оформить" class="btn btn-primary" />
+}
+
+@Html.ActionLink("Отменить изменения и вернуться в корзину", "Index", null, new
+{
+    @class = "btn btn-warning"
+})

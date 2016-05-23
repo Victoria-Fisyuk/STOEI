@@ -33,6 +33,18 @@ namespace TAiMStore.Model.Classes
             return new PaymentViewModel { Id = entity.Id, PaymentMethod = entity.NameMethod };
         }
 
+        public List<SelectListItem> GetPaymentsForDropDown()
+        {
+            var list = new List<SelectListItem>();
+            var payments = _paymentRepository.GetAll();
+
+            foreach (var payment in payments)
+            {
+                list.Add(new SelectListItem { Selected = false, Text = payment.NameMethod, Value = payment.NameMethod });
+            }
+
+            return list;
+        }
 
         public List<PaymentViewModel> GetPayments()
         {
