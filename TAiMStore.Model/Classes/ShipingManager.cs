@@ -37,12 +37,6 @@ namespace TAiMStore.Model.Classes
             _roleRepository.GetAll();
         }
 
-        public CartIndexViewModel GetShipin()
-        {
-            return null;
-        }
-
-
         public void CheckOut(IEnumerable<CartLine> lines, string payment, decimal totalCost, User user)
         {
             

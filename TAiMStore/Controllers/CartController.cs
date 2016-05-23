@@ -41,7 +41,7 @@ namespace TAiMStore.WebUI.Controllers
         public ViewResult Index(Cart cart, string returnUrl)
         {
             var masterPage = new MasterPageModel();
-            masterPage.CartView = new CartIndexViewModel
+            masterPage.CartView = new CartViewModel
             {
                 Cart = GetCart(),
                 ReturnUrl = returnUrl

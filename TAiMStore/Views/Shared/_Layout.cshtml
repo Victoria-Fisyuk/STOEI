@@ -50,7 +50,7 @@
                 {
 
                         <table>
-                            <tr>@Html.Label(Model.UserModel.Name)</tr>
+                            <tr>Добро пожаловать @Html.Label(Model.UserModel.Name)</tr>
                             <tr>
                             <td class="charcoal">@Html.ActionLink("Профиль", "Profile", "Account")</td>
                             @if (Model.UserRole != string.Empty && Model.UserRole == ConstantStrings.AdministratorRole)

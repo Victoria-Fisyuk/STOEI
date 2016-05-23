@@ -12,5 +12,7 @@ namespace TAiMStore.Model
         public const string AdministratorRole = "Administrator";
         public const string ModeratorRole = "Moderator";
         public const string CustomerRole = "Customer";
+        public const string LabelForEmailStart = "<label>";
+        public const string LabelForEmailEnd = "</label>";
     }
 }

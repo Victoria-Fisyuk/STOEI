@@ -28,7 +28,18 @@ namespace TAiMStore.WebUI.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private static bool _create = true;
 
-
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="repo"></param>
+        /// <param name="categoryRepository"></param>
+        /// <param name="orderRepository"></param>
+        /// <param name="orderProductRepository"></param>
+        /// <param name="paymentRepository"></param>
+        /// <param name="userRepository"></param>
+        /// <param name="roleRepository"></param>
+        /// <param name="contactsRepository"></param>
+        /// <param name="unitOfWork"></param>
         public AdminController(IProductRepository repo, ICategoryRepository categoryRepository, IOrderRepository orderRepository,
             IOrderProductRepository orderProductRepository, IPaymentRepository paymentRepository, IUserRepository userRepository, 
             IRoleRepository roleRepository, IContactsRepository contactsRepository, IUnitOfWork unitOfWork)
@@ -45,6 +56,11 @@ namespace TAiMStore.WebUI.Controllers
             categoryRepository.GetAll();
         }
 
+        /// <summary>
+        /// загружаем главную страницу админ-панели
+        /// где у нас находится список всех продуктов
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             var userName = HttpContext.User.Identity.Name;
@@ -71,9 +87,13 @@ namespace TAiMStore.WebUI.Controllers
                 masterViewModel.UserRole = ConstantStrings.AdministratorRole;
                 return View(masterViewModel);
             }
-            else return RedirectToAction("Index", "Home");
+            else return RedirectToAction("List", "Product");
         }
 
+        /// <summary>
+        /// меню администратора в зависимости от уровня доступа
+        /// </summary>
+        /// <returns></returns>
         public PartialViewResult _AdminMenu()
         {
             var userName = HttpContext.User.Identity.Name;
@@ -89,11 +109,12 @@ namespace TAiMStore.WebUI.Controllers
         }
 
         #region Products
-        public ViewResult SortedList(string category)
-        {
-            return View(_repository.GetMany(p => p.Category.Name == category));
-        }
-
+        
+        /// <summary>
+        /// Получаем продукт по Id и редактируем данные в нём
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public ViewResult Edit(int Id)
         {
             Product product = _repository.Get(p => p.Id == Id);
@@ -363,6 +384,7 @@ namespace TAiMStore.WebUI.Controllers
             return RedirectToAction("Users");
         }
 
+        
         [HttpPost]
         public ActionResult EditUser(string userId, string roles, bool isActivate)
         {
@@ -376,6 +398,10 @@ namespace TAiMStore.WebUI.Controllers
 
         #region Orders
 
+        /// <summary>
+        /// получаем список всех заказов
+        /// </summary>
+        /// <returns>модель</returns>
         public ActionResult OrderList()
         {
             var userName = HttpContext.User.Identity.Name;
@@ -405,7 +431,53 @@ namespace TAiMStore.WebUI.Controllers
             else return RedirectToAction("List", "Product");
         }
 
+        /// <summary>
+        /// формируем список заказов по заданному пользователю
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public ViewResult SortedOrderList(string userName)
+        {
+            return View(_orderRepository.GetMany(p => p.User.Name == userName));
+        }
+        
+        /// <summary>
+        /// загружаем подробности о заказе по его ID.
+        /// передаём в MasterPageModel для построения страницы
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns>модель страницы</returns>
+        public ViewResult OrderDetail(int orderId)
+        {
+            var masterPage = new MasterPageModel();
 
+            var order = _orderRepository.GetById(orderId);
+            var orderViews = new OrderViewModel();
+            orderViews.EntityToViewModel(order);
+            masterPage.OrderViewModel = orderViews;
+
+            var orderProducts = _orderProductRepository.GetMany(op => op.Order.Id == orderId);
+            var cart = new Cart();
+            foreach(var orderProduct in orderProducts)
+            {
+                cart.AddItem(orderProduct.Product, orderProduct.Quantity);
+            }
+            masterPage.CartView = new CartViewModel()
+            {
+                Cart = cart
+            };
+            
+            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
+            InitializeUsersRoles(masterPage, userManager);
+            
+            return View(masterPage);
+        }
+
+        /// <summary>
+        /// удаление заданного заказа 
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult DeleteOrder(int orderId)
         {
@@ -424,5 +496,6 @@ namespace TAiMStore.WebUI.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
     }
 }

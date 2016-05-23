@@ -1,4 +1,17 @@
-﻿<div class="well">
+﻿@model TAiMStore.Model.ViewModels.MasterPageModel
+
+@{
+    ViewBag.Title = "Просмотр заказов";
+}
+
+<h1>Просмотр заказа @Model.OrderViewModel.Id</h1>
+<h2>заказал @Model.OrderViewModel.UserName<br>
+    тип оплаты @Model.OrderViewModel.PaymentType<br>
+    почта @Model.OrderViewModel.eMail
+ <h2>
+
+
+<table id="cartTable" class="table">
     <thead>
         <tr>
             <th class="text-center">Товар</th>
@@ -13,12 +26,25 @@
             <tr>
                 <td class="text-center">@line.Product.Name</td>
                 <td class="text-center">@line.Quantity</td>
-                <td class="text-right">@line.Product.Price.ToString("c")</td>
+                <td class="text-right">@line.Product.Price.ToString("#. руб ## коп")</td>
                 <td class="text-right">
-                    @((line.Quantity * line.Product.Price).ToString("c"))
+                    @((line.Quantity * line.Product.Price).ToString("#. руб ## коп"))
                 </td>
             </tr>
         }
     </tbody>
-
-</div>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Итого:</td>
+            <td class="text-right">
+                @Model.CartView.Cart.ComputeTotalValue().ToString("#. руб ## коп")
+            </td>
+        </tr>
+    </tfoot>
+    <button>
+    @Html.ActionLink("Вернутся назад", "OrderList", null, new
+    {
+        @class = "btn btn-default"
+   })
+        </button>
+</table>

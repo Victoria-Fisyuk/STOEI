@@ -169,7 +169,7 @@
     <Content Include="Views\Admin\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Admin\SortedList.cshtml">
+    <Content Include="Views\Admin\SortedOrderList.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Admin\EditUser.cshtml" />
@@ -182,10 +182,10 @@
     <Content Include="Views\Account\PasswordNotChanged.cshtml" />
     <Content Include="Views\Admin\OrderList.cshtml" />
     <Content Include="Views\Admin\OrderDetail.cshtml" />
-    <Content Include="Views\Admin\OrderEdit.cshtml" />
     <Content Include="Views\Shared\_Captcha.cshtml" />
     <Content Include="Views\Cart\Error.cshtml" />
     <Content Include="Views\Cart\CartSummary.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -195,8 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Infrastructure\Binders\" />
-    <Folder Include="Infrastructure\Concrete\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TAiMStore.Domain\TAiMStore.Entities.csproj">

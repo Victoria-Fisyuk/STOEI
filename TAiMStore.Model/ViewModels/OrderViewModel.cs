@@ -10,7 +10,7 @@ namespace TAiMStore.Model.ViewModels
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        public double TotalCost { get; set; }
+        public decimal TotalCost { get; set; }
 
         public string UserName { get; set; }
 

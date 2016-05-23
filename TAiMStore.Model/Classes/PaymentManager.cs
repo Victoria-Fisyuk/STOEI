@@ -19,13 +19,20 @@ namespace TAiMStore.Model.Classes
             _unitOfWork = unitOfWork;
         }
 
+        
         #region GetPayments
+        /// <summary>
+        /// получаем типы оплаты по ID
+        /// </summary>
+        /// <param name="paymentId"></param>
+        /// <returns></returns>
         public PaymentViewModel GetPaymentViewModel(int paymentId)
         {
             var entity = _paymentRepository.Get(c => c.Id == paymentId);
 
             return new PaymentViewModel { Id = entity.Id, PaymentMethod = entity.NameMethod };
         }
+
 
         public List<PaymentViewModel> GetPayments()
         {
@@ -38,19 +45,6 @@ namespace TAiMStore.Model.Classes
                 tmp.PaymentMethod = payment.NameMethod;
                 tmp.Id = payment.Id;
                 list.Add(tmp);
-            }
-
-            return list;
-        }
-
-        public List<SelectListItem> GetPaymentsForDropDown()
-        {
-            var list = new List<SelectListItem>();
-            var payments = _paymentRepository.GetAll();
-
-            foreach (var payment in payments)
-            {
-                list.Add(new SelectListItem { Selected = false, Text = payment.NameMethod, Value = payment.NameMethod });
             }
 
             return list;

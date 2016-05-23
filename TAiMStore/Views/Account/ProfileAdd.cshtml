@@ -50,14 +50,6 @@
                 <label>Телефон</label></td>
             <td>@Html.TextBox("telephone", Model.Telephone)</td>
         </tr>
-        @if (Model.Email != string.Empty)
-        {
-            <tr>
-            <td>
-                <label>E-mail</label></td>
-            <td>@Html.TextBox("email", Model.EmailForTextBox)</td>
-        </tr>
-        }
     </table><br/>
     <input type="submit" value="Сохранить" class="button blue" /> 
     @Html.ActionLink("Отменить и вернуться", "Profile") 

@@ -8,19 +8,13 @@
 <table>
     <tr>
         <td>Категории</td>
-        <td>Редактировать</td>
         <td>Удалить</td>
     </tr>
     @foreach (var category in Model.Categories)
     {
         <tr>
-            <td>@category.CategoryName</td>
             <td>
-                @using (Html.BeginForm("CategoryEdit", "Admin", FormMethod.Get, new {enctype = "multipart/form-data"}))
-                {
-                    @Html.Hidden("categoryId", category.Id)
-                    <input type="submit" value="Редактировать" class="button blue"/>
-                }
+                @Html.ActionLink(category.CategoryName, "CategoryEdit",  new { categoryId = category.Id },FormMethod.Get)
             </td>
             <td>
                 @using (Html.BeginForm("CategoryDelete", "Admin", FormMethod.Post, new {enctype = "multipart/form-data"}))

@@ -8,6 +8,7 @@ namespace TAiMStore.Model.ViewModels
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
+
     }
 
     public class Cart
@@ -26,6 +27,12 @@ namespace TAiMStore.Model.ViewModels
             {
                 line.Quantity += quantity;
             }
+        }
+
+        public void AddLines(Product product, int quantity)
+        {
+            CartLine line = lineCollection.Where(p => p.Product.Id == product.Id).FirstOrDefault();
+            lineCollection.Add(new CartLine { Product = product, Quantity = quantity });
         }
 
         public void RemoveLine(Product product)
@@ -47,5 +54,6 @@ namespace TAiMStore.Model.ViewModels
         {
             get { return lineCollection; }
         }
+
     }
 }

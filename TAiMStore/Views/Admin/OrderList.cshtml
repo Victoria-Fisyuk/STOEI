@@ -5,6 +5,26 @@
 }
 
 <h1>Список заказов</h1>
+@{
+    var users = new List<SelectListItem>();
+    foreach (var item in Model.OrdersViewModel.Orders)
+    {
+        var tmp = new SelectListItem();
+        tmp.Value = item.UserName.ToLower();
+        tmp.Text = item.UserName.ToLower();
+        if (!users.Exists(c => c.Value == tmp.Value)) { users.Add(tmp); }
+    }
+    <b>Выбрать заказы пользователя:</b>
+    using (Html.BeginForm("SortedOrderList", "Admin"))
+    {
+        <div class="four fifths padded">
+            @Html.DropDownList("userName", users)
+        </div>
+        <div class="one fifths padded">
+            <input type="submit" value=">" class="button blue" />
+        </div>
+    }
+}
 
 <table class="Grid">
     <tr>
@@ -19,10 +39,15 @@
     @foreach (var item in Model.OrdersViewModel.Orders)
     {
         <tr>
-            <td>@item.Id
-            @*@HTML.ActionLink(item.Id, "Edit", "")*@</td>
+            <td>
+                @using (Html.BeginForm("OrderDetail","Admin", new { orderId = item.Id }))
+                {
+                    @Html.Hidden("orderId", item.Id)
+                    <input type="submit" value="Подробнее" class="button blue" />
+                }
+            </td>
             <td>@item.UserName</td>
-            <td> @item.eMail</td>
+            <td>@item.eMail</td>
             <td>@item.TotalCost.ToString("C")</td>
             <td>@item.CreateDate</td>
             <td>@item.PaymentType</td>

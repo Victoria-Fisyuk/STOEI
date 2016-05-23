@@ -132,12 +132,14 @@ namespace TAiMStore.Model.Classes
             {
                 var profile = new ProfileViewModel
                 {
-                    City = contacts.City,
-                    //Email = ConstantStrings.LabelForEmailStart + user.Email + ConstantStrings.LabelForEmailEnd,
-                    EmailForTextBox = user.Email,
-                    House = contacts.House,
-                    PostZip = contacts.PostZip.ToString(),
                     PersonFullName = contacts.PersonFullName,
+                    Organization = contacts.Organization,
+                    PostZip = contacts.PostZip,
+                    City = contacts.City,
+                    Email = ConstantStrings.LabelForEmailStart + user.Email + ConstantStrings.LabelForEmailEnd,
+                    House = contacts.House,
+                    
+                    
                     Room = contacts.Room,
                     Street = contacts.Street,
                     Telephone = contacts.Telephone
@@ -153,10 +155,11 @@ namespace TAiMStore.Model.Classes
             var contact = new Contacts
             {
                 PersonFullName = profile.PersonFullName,
+                Organization = profile.Organization,
                 City = profile.City,
                 Street = profile.Street,
                 House = profile.House,
-                PostZip = Convert.ToInt32(profile.PostZip),
+                PostZip = profile.PostZip,
                 Room = profile.Room,
                 Telephone = profile.Telephone
             };
@@ -171,10 +174,11 @@ namespace TAiMStore.Model.Classes
             _contactsRepository.GetAll();
             var contact = user.Contacts;
             contact.PersonFullName = profile.PersonFullName;
+            contact.Organization = profile.Organization;
             contact.City = profile.City;
             contact.Street = profile.Street;
             contact.House = profile.House;
-            contact.PostZip = Convert.ToInt32(profile.PostZip);
+            contact.PostZip = profile.PostZip;
             contact.Room = profile.Room;
             contact.Telephone = profile.Telephone;
             user.Email = profile.Email;

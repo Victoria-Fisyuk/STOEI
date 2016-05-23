@@ -11,9 +11,7 @@ namespace TAiMStore.Model.ViewModels
         public ProfileViewModel ProfileView { get; set; }
         public OrdersViewModel OrdersViewModel { get; set; }
         public OrderViewModel OrderViewModel { get; set; }
-        
-        public CartIndexViewModel CartView { get; set; }
-
+        public CartViewModel CartView { get; set; }
         public List<UserViewModel> Users { get; set; }
         public List<SelectListItem> RolesList { get; set; }
         public List<PaymentViewModel> Payments { get; set; }

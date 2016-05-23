@@ -5,26 +5,6 @@
 }
 
 <h1>Товары</h1>
-@{
-    var categories = new List<SelectListItem>();
-    foreach (var item in Model.ProductsViewModel.Products)
-    {
-        var tmp = new SelectListItem();
-        tmp.Value = item.Category.ToLower();
-        tmp.Text = item.Category.ToLower();
-        if (!categories.Exists(c => c.Value == tmp.Value)) { categories.Add(tmp); }
-    }
-    <b>Категории:</b>
-    using (Html.BeginForm("SortedList", "Admin"))
-    {
-    <div class="four fifths padded">
-        @Html.DropDownList("category", categories)
-    </div>  
-    <div class="one fifths padded">
-        <input type="submit" value=">" class="button blue" />
-    </div>
-    }
-}
 <table class="Grid">
     <tr>
         <th>ID</th>
