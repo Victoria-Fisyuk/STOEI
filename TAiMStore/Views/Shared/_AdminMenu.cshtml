@@ -1,11 +1,13 @@
 ﻿@using TAiMStore.Model
 @model TAiMStore.Model.ViewModels.MasterPageModel
 
-@Html.ActionLink("Товары", "Index", "Admin")
-@Html.ActionLink("Категории", "Categories", "Admin")
-@Html.ActionLink("Типы оплаты", "Payments", "Admin")
-@Html.ActionLink("Заказы", "OrderList", "Admin")
+@Html.Label("Админ-панель", new { @class = "btn-block btn-default" })
+
+@Html.ActionLink("Товары", "Index", "Admin", new { @class = "btn btn-block btn-default btn" })
+@Html.ActionLink("Категории", "Categories", "Admin", new { @class = "btn btn-block btn-default btn" })
+@Html.ActionLink("Типы оплаты", "Payments", "Admin", new { @class = "btn btn-block btn-default btn" })
+@Html.ActionLink("Заказы", "OrderList", "Admin", new { @class = "btn btn-block btn-default btn" })
 @if (Model.UserRole == @ConstantStrings.AdministratorRole)
 {
-    @Html.ActionLink("Пользователи", "Users", "Admin")
+    @Html.ActionLink("Пользователи", "Users", "Admin", new { @class = "btn btn-block btn-default btn" })
 }

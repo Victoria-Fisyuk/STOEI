@@ -3,22 +3,23 @@
 }
 @model TAiMStore.Model.ViewModels.MasterPageModel
 <h2>Редактирование пользователя</h2>
-
-<table>
-    <tr>
-        <td>Имя</td>
-        <td>@Html.TextBox("name", Model.UserModel.Name)</td>
-    </tr>
-    <tr>
-        <td>E-mail</td>
-        <td>@Html.TextBox("email", Model.UserModel.Email)</td>
-    </tr>
-    <tr>
-        <td>Статус активации</td>
-        <td>@Html.CheckBox("активация", Model.UserModel.isActive)</td>
-    </tr>
-    <tr>
-        <td>Роль</td>
-        <td>@Html.DropDownList("roles", Model.RolesList)</td>
-    </tr>
-</table>
+<div class="panel-body">
+    <table width="500">
+                    <tr>
+                        <td>Имя</td>
+                        <td>@Html.TextBox("name", Model.UserModel.Name)</td>
+                    </tr>
+                    <tr>
+                        <td>E-mail</td>
+                        <td>@Html.TextBox("email", Model.UserModel.Email)</td>
+                    </tr>
+                    <tr>
+                        <td>Статус активации</td>
+                        <td>@Html.CheckBox("активация", Model.UserModel.isActivate)</td>
+                    </tr>
+                    <tr>
+                        <td>Роль</td>
+                        <td>@Html.DropDownList("roles", Model.RolesList)</td>
+                    </tr>
+    </table>
+</div>

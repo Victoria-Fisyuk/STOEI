@@ -123,6 +123,7 @@ namespace TAiMStore.WebUI.Controllers
             if (product == null) _create = true;
             {
                 viewModel.EntityToProductViewModel(product);
+                _create = false;
             }
             masterViewModel.ProductView = viewModel;
             var manager = new CategoryManager(_categoryRepository, _unitOfWork);
@@ -131,7 +132,7 @@ namespace TAiMStore.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int Id, string name, string desc,string descSec, decimal price, string cat, double disc, HttpPostedFileBase image)
+        public ActionResult Edit(int Id, string name, string desc,string descSec, decimal price, string cat, HttpPostedFileBase image)
         {
             var viewModel = new ProductViewModel
             {

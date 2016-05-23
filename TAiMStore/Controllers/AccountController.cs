@@ -176,7 +176,7 @@ namespace TAiMStore.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ProfileAdd(string fullName,string organization, string city, string street, string house, string room, string telephone, string postZip, string email)
+        public ActionResult ProfileAdd(string fullName, string organization, string city, string street, string house, string room, string telephone, string postZip, string email)
         {
             var model = new MasterPageModel();
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
@@ -373,6 +373,15 @@ namespace TAiMStore.Controllers
             }
             return ModelState.IsValid;
         }
+
+        public PartialViewResult UserMenu()
+        {
+            var userName = HttpContext.User.Identity.Name;
+            var masterModel = new MasterPageModel();
+
+            return PartialView(masterModel);
+        }
+
         #endregion
 
         #region Initilaze

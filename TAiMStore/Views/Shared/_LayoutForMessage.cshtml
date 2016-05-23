@@ -19,18 +19,23 @@
     </header>
     <nav class="navbar navbar-default" role="navigation">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Главная", "List", "Product")</li>
-                <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>
+            <ul class="nav nav-tabs">
+                <li class="active">@Html.ActionLink("Главная", "List", "Product") </li>
+                <li>@Html.ActionLink("Регистрация", "Register", "Account") </li>
             </ul>
         </div>
     </nav>
     <div class="row panel">
-        <div id="categories" class="col-xs-3">
-            @Html.Action("Menu", "Nav")
-        </div>
-        <div class="col-xs-8">
-            @RenderBody()
+        <div class="row panel">
+            <div class="col-sm-3 col-md-3 sidebar">
+                <ul title="Меню" role="menu">
+                    <ul title="category" id="categories" class="nav nav-sidebar">
+                        @Html.Action("Menu", "Nav")
+                    </ul>
+            </div>
+            <div class="col-xs-8">
+                @RenderBody()
+            </div>
         </div>
     </div>
     <footer>

@@ -1,10 +1,10 @@
 ﻿@model Dictionary<TAiMStore.Model.ViewModels.CategoryViewModel, double>
 
-@Html.Label("Меню категорий")
+@Html.Label("Меню категорий", new  {@class = "btn-block btn-default" })
 
 @foreach (var link in Model)
 {
-    
+    <li>
     @Html.RouteLink(link.Key.CategoryName, new
     {
         controller = "Product",
@@ -16,4 +16,5 @@
         @class ="btn btn-block btn-default btn"
         + (link.Key.CategoryName == ViewBag.SelectedCategory ? " btn-primary" : "")
      })
+     </li>
 }

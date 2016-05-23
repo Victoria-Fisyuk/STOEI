@@ -4,44 +4,46 @@
 @using TAiMStore.HtmlHelpers
 @model TAiMStore.Model.ViewModels.MasterPageModel
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
-{
-    @Html.ValidationSummary()
-    <table>
-        <tr>
-            <td><label>Логин</label></td>
-            <td>@Html.TextBox("userName", "")</td>
-        </tr>
-        <tr>
-            <td><label>Пароль</label></td>
-            <td>@Html.Password("Password", "")</td>
-        </tr>
-        <tr>
-            <td><label>Подтвердите пароль</label></td>
-            <td>@Html.Password("ConfirmPassword", "")</td>
-        </tr>
-        <tr>
-            <td><label>E-mail</label></td>
-            <td>@Html.TextBox("Email", "")</td>
-        </tr>
-        <tr>
-            <td>
-                <label>Введите код </label>
-            </td>
-            <td>@Html.TextBox("attempt", "")</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>@Html.Raw(Html.CaptchaHlp("myCaptcha", 42, 140))</td>
-        </tr>
-    </table>
-    <br />
-    <div>
-        <input type="submit" value="Зарегистрироваться" class="button blue" />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Регистрация</h3>
     </div>
+    <div class="panel-body">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                {
+                    @Html.ValidationSummary()
+                    <table class="table table-striped table-condensed table-bordered">
+                        <tr>
+                            <td><label>Логин</label></td>
+                            <td>@Html.TextBox("userName", "", new { @class = "form-control" })</td>
+                        </tr>
+                        <tr>
+                            <td><label>Пароль</label></td>
+                            <td>@Html.Password("Password", "", new { @class = "form-control" })</td>
+                        </tr>
+                        <tr>
+                            <td><label>Подтвердите пароль</label></td>
+                            <td>@Html.Password("ConfirmPassword", "", new { @class = "form-control" })</td>
+                        </tr>
+                        <tr>
+                            <td><label>E-mail</label></td>
+                            <td>@Html.TextBox("Email", "", new { @class = "form-control" })</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">
+                                <label>Введите код </label>
+                            </td>
+                            <td>@Html.TextBox("attempt", "", new { @class = "form-control" })</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">@Html.Raw(Html.CaptchaHlp("myCaptcha", 42, 140))</td>
+                        </tr>
+                    </table>
+                    <br />
+                    <div>
+                        <input type="submit" value="Зарегистрироваться" class="button blue" />
+                    </div>
 
-}
-@section Title
-{
-    Регистрация
-}
+                }
+    </div>
+</div>

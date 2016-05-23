@@ -4,47 +4,63 @@
     ViewBag.Title = "Просмотр заказов";
 }
 
-<h1>Просмотр заказа @Model.OrderViewModel.Id</h1>
-<h2>заказал @Model.OrderViewModel.UserName<br>
-    тип оплаты @Model.OrderViewModel.PaymentType<br>
-    почта @Model.OrderViewModel.eMail
- <h2>
-
-
-<table id="cartTable" class="table">
-    <thead>
-        <tr>
-            <th class="text-center">Товар</th>
-            <th class="text-center">Кол-во</th>
-            <th class="text-right">Цена</th>
-            <th class="text-right">Общая цена</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model.CartView.Cart.Lines)
-        {
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>О заказе</h2>
+    </div>
+    <div class="panel-body">
+        <table width="300" class="table table-striped table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-left">Номер заказа</th>
+                    <th class="text-left">Пользователь</th>
+                    <th class="text-left">email</th>
+                </tr>
+             </thead>
+            <tbody>
+                <tr>
+                    <th class="text-left">@Model.OrderViewModel.Id</th>
+                    <th class="text-left">@Model.OrderViewModel.UserName</th>
+                    <th class="text-left">@Model.OrderViewModel.eMail</th>
+                </tr>
+            </tbody>
+       </table>
+    </div>
+    <div class="panel-heading">
+        <h3>Список товаров</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+        <thead>
             <tr>
-                <td class="text-center">@line.Product.Name</td>
-                <td class="text-center">@line.Quantity</td>
-                <td class="text-right">@line.Product.Price.ToString("#. руб ## коп")</td>
+                <th class="text-center">Товар</th>
+                <th class="text-center">Кол-во</th>
+                <th class="text-right">Цена</th>
+                <th class="text-right">Общая цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.CartView.Cart.Lines)
+            {
+                <tr>
+                    <td class="text-center">@line.Product.Name</td>
+                    <td class="text-center">@line.Quantity</td>
+                    <td class="text-right">@line.Product.Price.ToString("#. руб ## коп")</td>
+                    <td class="text-right">
+                        @((line.Quantity * line.Product.Price).ToString("#. руб ## коп"))
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Итого:</td>
                 <td class="text-right">
-                    @((line.Quantity * line.Product.Price).ToString("#. руб ## коп"))
+                    @Model.CartView.Cart.ComputeTotalValue().ToString("#. руб ## коп")
                 </td>
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right">Итого:</td>
-            <td class="text-right">
-                @Model.CartView.Cart.ComputeTotalValue().ToString("#. руб ## коп")
-            </td>
-        </tr>
-    </tfoot>
-    <button>
-    @Html.ActionLink("Вернутся назад", "OrderList", null, new
-    {
-        @class = "btn btn-default"
-   })
-        </button>
-</table>
+        </tfoot>
+        </table>
+    </div>
+</div>
+@Html.ActionLink("Вернутся назад", "OrderList",null, new { @class = "btn btn-info" })

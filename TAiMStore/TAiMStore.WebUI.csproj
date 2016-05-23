@@ -186,6 +186,8 @@
     <Content Include="Views\Cart\Error.cshtml" />
     <Content Include="Views\Cart\CartSummary.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\UserMenu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

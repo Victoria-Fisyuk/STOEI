@@ -3,55 +3,68 @@
     ViewBag.Title = "Добавление информации";
 }
 @model TAiMStore.Model.ViewModels.ProfileViewModel
-<h2>Добавление информации</h2>
 
-@using (Html.BeginForm("ProfileAdd", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{ 
-    <table>
-        <tr>
-            <td>
-                <label>Ф.И.О.</label></td>
-            <td>@Html.TextBox("fullName", Model.PersonFullName)</td>
-        </tr>
-        <tr>
-            <td>
-                <label>Организация</label>
-            </td>
-            <td>@Html.TextBox("organization", Model.Organization)</td>
-        </tr>
-        <tr>
-            <td>
-                <label>Почтовый Индекс</label>
-            </td>
-            <td>@Html.TextBox("postZip", Model.PostZip)</td>
-        </tr>
-        <tr>
-            <td>
-                <label>Город</label></td>
-            <td>@Html.TextBox("city", Model.City)</td>
-        </tr>
-        <tr>
-            <td>
-                <label>Улица</label></td>
-            <td>@Html.TextBox("street", Model.Street)</td>
-        </tr>
-        <tr>
-            <td>
-                <label>Дом</label></td>
-            <td>@Html.TextBox("house", Model.House)</td>
-        </tr>
-        <tr>
-            <td>
-                <label>Квартира(оффис)</label></td>
-            <td>@Html.TextBox("room", Model.Room)</td>
-        </tr>
-        <tr>
-            <td>
-                <label>Телефон</label></td>
-            <td>@Html.TextBox("telephone", Model.Telephone)</td>
-        </tr>
-    </table><br/>
-    <input type="submit" value="Сохранить" class="button blue" /> 
-    @Html.ActionLink("Отменить и вернуться", "Profile") 
-}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Добавление типа оплаты</h2>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("ProfileAdd", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <table width="500">
+                <tr>
+                    <td>
+                        <label>Ф.И.О.</label>
+                    </td>
+                    <td>@Html.TextBox("fullName", Model.PersonFullName, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Организация</label>
+                    </td>
+                    <td>@Html.TextBox("organization", Model.Organization, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Почтовый Индекс</label>
+                    </td>
+                    <td>@Html.TextBox("postZip", Model.PostZip, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Город</label>
+                    </td>
+                    <td>@Html.TextBox("city", Model.City, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Улица</label>
+                    </td>
+                    <td>@Html.TextBox("street", Model.Street, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Дом</label>
+                    </td>
+                    <td>@Html.TextBox("house", Model.House, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Квартира(оффис)</label>
+                    </td>
+                    <td>@Html.TextBox("room", Model.Room, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Телефон</label>
+                    </td>
+                    <td>@Html.TextBox("telephone", Model.Telephone, new { @class = "form-control" })</td>
+                </tr>
+            </table><br />
+            <input type="submit" value="Подтвердить" class="btn btn-success" />
+            @Html.ActionLink("Отменить и вернуться", "Profile", null, new { @class = "btn btn-danger " })
+        }
+    </div>
+</div>
 

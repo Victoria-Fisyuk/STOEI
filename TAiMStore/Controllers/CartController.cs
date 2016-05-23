@@ -99,11 +99,13 @@ namespace TAiMStore.WebUI.Controllers
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
             var shipingManager = new ShipingManager(_orderRepository,_orderProductRepository,_repository,
                 _userRepository,_paymentRepository,_roleRepository,_contactsRepository, _unitOfWork);
-            var lines = GetCart().Lines;
+            var cart = GetCart();
+
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 var user = userManager.GetUserByName(HttpContext.User.Identity.Name);
-                shipingManager.CheckOut(lines, paymentType, totalCost, user);
+                shipingManager.CheckOut(cart.Lines, paymentType, totalCost, user);
+                cart.Clear();
             }
             return RedirectToAction("List", "Product"); ;
         }

@@ -1,49 +1,54 @@
 ﻿@{
-    ViewBag.Title = "Пользователи";
+    ViewBag.Title = "Список Пользователей";
 }
 @model TAiMStore.Model.ViewModels.MasterPageModel
-<h2>Пользователи</h2>
 
-<table>
-    <tr>
-        <td>Имя</td>
-        <td>E-mail</td>
-        <td>Статус активации</td>
-        <td>Роль</td>
-        <td></td>
-        <td></td>
-    </tr>
-    @foreach (var user in Model.Users)
-    {
-        <tr>
-            <td>@user.Name</td>
-            <td>@user.Email</td>
-            
-            @using (Html.BeginForm("EditUser", "Admin"))
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Пользователи</h2>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <td class="text-center">Имя</td>
+                <td class="text-center">E-mail</td>
+                <td class="text-center">Статус активации</td>
+                <td class="text-center">Роль</td>
+                <td colspan="2" class="text-center">Действия</td>
+            </tr>
+            @foreach (var user in Model.Users)
             {
-                <td>
-                    @if (user.isActivate != null && user.isActivate != false)
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+
+                    @using (Html.BeginForm("EditUser", "Admin"))
                     {
-                        @Html.Hidden("isActivate", true)
-                        <input type="checkbox" checked="checked" disabled="disabled" />
-                    }
-                    else
-                    {
-                        @Html.CheckBox("isActivate", false)
-                    }
-                </td>
-                    <td>@Html.DropDownList("roles", user.Roles)</td>
+                        <td class="text-center">
+                            @if (user.isActivate != null && user.isActivate != false)
+                            {
+                                @Html.Hidden("isActivate", true)
+                                <input type="checkbox" checked="checked" disabled="disabled" />
+                            }
+                            else
+                            {
+                                @Html.CheckBox("isActivate", false)
+                            }
+                        </td>
+                        <td class="text-center">@Html.DropDownList("roles", user.Roles)</td>
                         @Html.Hidden("userId", user.Id)
-                    <td><input type="submit" value="Сохранить" class="button blue" /></td>
+                        <td class="text-center"><input type="submit" value="Сохранить" class="btn btn-success btn-sm" /></td>
+                    }
+                    <td class="text-center">
+                        @using (Html.BeginForm("DeleteUser", "Admin"))
+                        {
+                            @Html.Hidden("userId", user.Id)
+                            <input type="submit" onclick="return confirm('Вы действительно хотите удалить пользователя?');" value="Удалить" class="btn btn-danger btn-sm" />
+                        }
+                    </td>
+                </tr>
             }
-            <td>
-                @using (Html.BeginForm("DeleteUser", "Admin"))
-                { 
-                    @Html.Hidden("userId", user.Id)
-                    <input type="submit" onclick = "return confirm('Вы действительно хотите удалить пользователя?');" value="Удалить" class="button blue" /> 
-                }
-            </td>
-        </tr>
-    }
-</table>
-<br />
+        </table>
+        <br />
+    </div>
+</div>

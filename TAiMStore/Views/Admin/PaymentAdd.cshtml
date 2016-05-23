@@ -4,19 +4,24 @@
     ViewBag.Title = "Добавление тип оплаты";
 }
 
-<h2>Добавление Категории</h2>
-
-@using (Html.BeginForm("PaymentAdd", "Admin", FormMethod.Post, new {enctype = "multipart/form-data"}))
-{
-    <table>
-        <tr>
-            <td>Наименование категории</td>
-        </tr>
-        <tr>
-            <td class="padded">
-                @Html.TextBox("paymentName", Model.Payment.PaymentMethod)
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="Добавить" class="button blue"/>
-}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Добавление типа оплаты</h3>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("PaymentAdd", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <table>
+                <tr>
+                    <td>Наименование</td>
+                </tr>
+                <tr>
+                    <td class="padded">
+                        @Html.TextBox("paymentName", Model.Payment.PaymentMethod, new { @class="form-control"})
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Добавить" class="btn  btn-default btn-lg" />
+        }
+       </div>
+</div>

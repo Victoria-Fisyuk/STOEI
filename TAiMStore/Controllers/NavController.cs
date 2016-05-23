@@ -34,12 +34,5 @@ namespace TAiMStore.Controllers
             return PartialView(categoryList);
         }
     }
-    /**
-            IEnumerable<string> categories = _categoryRepository.Categories
-                .Select(p => p.Name)
-                .Distinct()
-                .OrderBy(x => x);
-            return PartialView(categories);
-**/
 }
 

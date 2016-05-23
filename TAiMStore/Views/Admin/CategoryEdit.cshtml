@@ -3,21 +3,29 @@
     ViewBag.Title = "Редактирование";
 }
 
-
-<h2>Редактирование @Model.Category.CategoryName</h2>
-
 @using (Html.BeginForm("CategoryEdit", "Admin", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
-    <table>
-        <tr>
-            <td>Наименование категории</td>
-        </tr>
-        <tr>
-            <td class="padded">
-                @Html.Hidden("categoryId", Model.Category.Id)
-                @Html.TextBox("categoryName", Model.Category.CategoryName)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2>Редактирование категории:
+            <br/>
+            @Model.Category.CategoryName</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-condensed table-bordered">
+                <tr>
+                    <td>Наименование категории</td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        @Html.Hidden("categoryId", Model.Category.Id)
+                        @Html.TextBox("categoryName", Model.Category.CategoryName, new { @class = "form-control" })
+                    </td>
+                 </tr>
+             </table>
+            <td class="text-center">
+                <input type="submit" value="Сохранить" class="btn btn-success btn-lg" />
             </td>
-        </tr>
-    </table>
-    <input type="submit" value="Сохранить" class="button blue"/>
+        </div>
+    </div>
 }
