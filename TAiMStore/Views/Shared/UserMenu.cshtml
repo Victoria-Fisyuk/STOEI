@@ -1,0 +1,8 @@
+﻿@using TAiMStore.Model
+@model TAiMStore.Model.ViewModels.MasterPageModel
+
+@Html.Label("Меню Пользователя", new { @class = "btn-block btn-default" })
+<nav role="menu" class="small-tablet nav vertical menu charcoal">
+    @Html.ActionLink("Профиль", "Profile", "Account", new { @class = "btn btn-block btn-default btn" })
+    @Html.ActionLink("Смена Пароля", "ChangePassword", "Account", new { @class = "btn btn-block btn-default btn" })
+</nav>
