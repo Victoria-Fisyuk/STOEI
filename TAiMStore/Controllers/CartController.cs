@@ -97,7 +97,7 @@ namespace TAiMStore.WebUI.Controllers
         public ActionResult Checkout(string paymentType, decimal totalCost)
         {
             var masterPage = new MasterPageModel();
-
+            var orderModel = new OrderViewModel();
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
             var shipingManager = new ShipingManager(_orderRepository,_orderProductRepository,_repository,
                 _userRepository,_paymentRepository,_roleRepository, _unitOfWork);
@@ -107,10 +107,11 @@ namespace TAiMStore.WebUI.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 var user = userManager.GetUserByName(HttpContext.User.Identity.Name);
-                shipingManager.CheckOut(cart.Lines, paymentType, totalCost, user);
+                var order = shipingManager.CheckOut(cart.Lines, paymentType, totalCost, user);
+                orderModel.EntityToViewModel(order);
                 cart.Clear();
             }
-
+            masterPage.OrderViewModel = orderModel;
             return View("Completed", masterPage);
         }
 

@@ -4,7 +4,6 @@ using Autofac.Integration.Mvc;
 using TAiMStore.Model.Factory;
 using TAiMStore.Model.Repository;
 using TAiMStore.Model.UnitOfWork;
-using TAiMStore.Model.Interfaces;
 using System.Web.ModelBinding;
 
 namespace TAiMStore.Configs

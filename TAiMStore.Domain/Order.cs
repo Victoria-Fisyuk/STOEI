@@ -11,5 +11,6 @@ namespace TAiMStore.Domain
         public virtual PaymentType Payment { get; set; }
 
         public ICollection<OrderProduct> OrderProducts { get; set; }
+
     }
 }

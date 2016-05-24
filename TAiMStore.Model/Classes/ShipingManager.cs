@@ -35,10 +35,11 @@ namespace TAiMStore.Model.Classes
             _roleRepository.GetAll();
         }
 
-        public void CheckOut(IEnumerable<CartLine> lines, string payment, decimal totalCost, User user)
+        public Order CheckOut(IEnumerable<CartLine> lines, string payment, decimal totalCost, User user)
         {
             var tmpOrder = SetOrder(user, totalCost, payment);
             SetOrderProduct(lines, tmpOrder);
+            return tmpOrder;
         }
 
         public Order SetOrder(User user, decimal totalCost, string payment)
