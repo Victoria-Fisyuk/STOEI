@@ -21,7 +21,7 @@ namespace TAiMStore.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly IContactsRepository _contactsRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public int PageSize = 4;
+        public int PageSize = 6;
 
 
         public ProductController(IProductRepository productsRepository, ICategoryRepository categoryRepository, IUserRepository userRepository,
@@ -37,15 +37,21 @@ namespace TAiMStore.Controllers
         }
 
 
-        //получаем список продуктов, проверяем 
-        public ViewResult List(string category, int page = 1)
+        /// <summary>
+        /// получаем список продуктов, статус авторизации
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ActionResult List(string category, int page = 1)
         {
-            var manager = new ProductManager(_repository);
-            var model = manager.GetProducts(category, page, PageSize);
             var masterModel = new MasterPageModel();
-            masterModel.ProductsViewModel = model;
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
             InitializeUsersRoles(masterModel, userManager);
+
+            var manager = new ProductManager(_repository);
+            var model = manager.GetProducts(category, page, PageSize);
+            masterModel.ProductsViewModel = model;
 
             return View(masterModel);
         }

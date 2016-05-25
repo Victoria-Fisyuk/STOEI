@@ -53,14 +53,4 @@
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.CartView.ReturnUrl">Продолжить покупки</a>
     @Html.ActionLink("Оформить заказ", "Checkout",null, new { @class = "btn btn-primary" })
-    
-        @*
-            @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
-        {
-            @Html.Hidden("paymentType", "тестовая");
-            @Html.Hidden("totalCost", @Model.CartView.Cart.ComputeTotalValue());
-            <input type="submit" value="Оформить" class="btn btn-primary" />
-        }
-
-        *@ 
 </div>

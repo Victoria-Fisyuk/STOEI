@@ -16,7 +16,7 @@
                     <th class="text-left">Пользователь</th>
                     <th class="text-left">email</th>
                 </tr>
-             </thead>
+            </thead>
             <tbody>
                 <tr>
                     <th class="text-left">@Model.OrderViewModel.Id</th>
@@ -24,7 +24,12 @@
                     <th class="text-left">@Model.OrderViewModel.eMail</th>
                 </tr>
             </tbody>
-       </table>
+        </table>
+            @using (Html.BeginForm("OrderEdit", "Admin", new { orderId = @Model.OrderViewModel.Id}))
+            {
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <td class="text-center"><input type="submit" value="Обработать" class="btn btn-success btn-sm" /></td>
+            }
     </div>
     <div class="panel-heading">
         <h3>Список товаров</h3>

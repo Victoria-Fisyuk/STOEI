@@ -170,13 +170,12 @@ namespace TAiMStore.Controllers
             else
             {
                 var profileView = userManager.GetProfileViewModelByName(model.UserModel.Name);
-
                 return View(profileView);
             }
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ProfileAdd(string fullName, string organization, string city, string street, string house, string room, string telephone, string postZip, string email)
+        public ActionResult ProfileAdd(string fullName, string organization, string city, string street, string house, string room, string telephone, string postZip)
         {
             var model = new MasterPageModel();
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
@@ -211,7 +210,6 @@ namespace TAiMStore.Controllers
             }
             else
             {
-                profileView.Email = email;
                 userManager.ContactsEdit(model.UserModel.Name, profileView);
             }
             model.ProfileView = profileView;

@@ -17,9 +17,13 @@ namespace TAiMStore.Model.ViewModels
         public string eMail { get; set; }
 
         public string PaymentType { get; set; }
+        
+        public bool? Status { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public DateTime CreateDate { get; set; }
+
+        public string ReturnUrl { get; set; }
 
         public void EntityToViewModel(Order order)
         {
@@ -27,6 +31,7 @@ namespace TAiMStore.Model.ViewModels
             this.TotalCost = order.TotalCost;
             this.UserName = order.User.Name;
             this.eMail = order.User.Email;
+            this.Status = order.Status;
             this.PaymentType = order.Payment.NameMethod;
 
             this.CreateDate = order.CreateDate;

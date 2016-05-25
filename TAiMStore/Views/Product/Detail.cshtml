@@ -18,7 +18,7 @@
                 @using (Html.BeginForm("AddToCart", "Cart", new { Id = @Model.ProductView.Id }))
                 {
                     <div class="pull-right">
-                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        @Html.Hidden("returnUrl", Request.Url.OriginalString)
                         <input type="submit" class="btn btn-success" value="Добавить в корзину" />
                     </div>
                 }

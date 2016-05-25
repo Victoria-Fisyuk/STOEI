@@ -136,9 +136,8 @@ namespace TAiMStore.Model.Classes
                     Organization = contacts.Organization,
                     PostZip = contacts.PostZip,
                     City = contacts.City,
-                    Email = ConstantStrings.LabelForEmailStart + user.Email + ConstantStrings.LabelForEmailEnd,
+                    Email = ConstantStrings.LabelForEmailStart + contacts.User.Email + ConstantStrings.LabelForEmailEnd,
                     House = contacts.House,
-                    
                     
                     Room = contacts.Room,
                     Street = contacts.Street,
@@ -181,9 +180,7 @@ namespace TAiMStore.Model.Classes
             contact.PostZip = profile.PostZip;
             contact.Room = profile.Room;
             contact.Telephone = profile.Telephone;
-            user.Email = profile.Email;
 
-            _userRepository.Update(user);
             _contactsRepository.Update(contact);
 
             _unitOfWork.Commit();

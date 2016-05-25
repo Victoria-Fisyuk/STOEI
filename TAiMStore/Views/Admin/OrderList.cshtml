@@ -1,4 +1,5 @@
-﻿@model TAiMStore.Model.ViewModels.MasterPageModel
+﻿@using TAiMStore.HtmlHelpers
+@model TAiMStore.Model.ViewModels.MasterPageModel
 
 @{
     ViewBag.Title = "Заказы";
@@ -22,7 +23,9 @@
             @Html.DropDownList("userName", users)
         </div>
     <div class="btn-group">
-        <input type="submit" value="Выбрать" class="btn btn-info" />
+        <button type="submit" class="btn btn-info btn-sm">
+            <span class="glyphicon glyphicon-chevron-right" />
+        </button>
     </div>
     }
     </div>
@@ -32,11 +35,20 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2>Список заказов</h2>
+            <div>
+                <input value="Подробнее ...." class="btn btn-sm btn-success" />так отмечены обработанные заказы
+            </div>
+            <div>
+                <input value="Подробнее ...." class="btn btn-sm btn-warning"/>так отмечены необработанные заказы
+             </div>
+            <div>
+                <input value="Подробнее ...." class="btn btn-sm btn-danger"/>так отмечены непросмотренные заказы
+            </div>
     </div>
     <div class="panel-body">
         <table class="table table-striped table-condensed table-bordered">
             <tr>
-                <th>ID</th>
+                <th>Status</th>
                 <th>Имя пользователя</th>
                 <th>Email</th>
                 <th class="NumericCol">Общая Цена</th>
@@ -55,20 +67,38 @@
                     <td>@item.PaymentType</td>
                     <td>
                         @using (Html.BeginForm("DeleteOrder", "Admin"))
-                        {
+                            {
                             @Html.Hidden("orderId", item.Id)
                             <input type="submit" value="Delete" onclick="return confirm('Вы действительно хотите удалить данный заказ?');" class="btn btn-danger" />
-                        }
+                            }
                     </td>
                 </tr>
                 <td colspan="7">
-                    @using (Html.BeginForm("OrderDetail", "Admin", new { orderId = item.Id }))
+                @using (Html.BeginForm("OrderDetail", "Admin", new { orderId = item.Id }))
+                {
+                    @Html.Hidden("orderId", item.Id)
+                    switch (@item.Status)
                     {
-                        @Html.Hidden("orderId", item.Id)
-                    <input type="submit" value="Подробнее ...." class="btn-sm btn-link" />
+                        case true:
+                            <input type="submit" value="Подробнее ...." class="btn btn-sm btn-success" />
+                            break;
+                        case false:
+                            <input type="submit" value="Подробнее ...." class="btn btn-sm btn-warning" />
+                            break;
+                        default:
+                            <input type="submit" value="Подробнее ...." class="btn btn-sm btn-danger" />
+                            break;
                     }
+                }
                 </td>
             }
         </table>
     </div>
 </div>
+<center>
+    <div>Cтраницы </div>
+    <div class="btn-group pull-left">
+        @Html.PageLinks(Model.OrdersViewModel.PagingInfo, x => Url.Action("OrderList",
+                             new { page = x }))
+    </div>
+</center>

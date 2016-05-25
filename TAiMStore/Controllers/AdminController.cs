@@ -27,6 +27,7 @@ namespace TAiMStore.WebUI.Controllers
         private readonly IContactsRepository _contactsRepository;
         private readonly IUnitOfWork _unitOfWork;
         private static bool _create = true;
+        public int PageSize = 4;
 
         /// <summary>
         /// конструктор
@@ -375,7 +376,7 @@ namespace TAiMStore.WebUI.Controllers
         {
             var user = _userRepository.GetById(userId);
             var contacts = _contactsRepository.Get(c => c.User.Id == userId);
-            _contactsRepository.Delete(contacts);
+            if (contacts != null) _contactsRepository.Delete(contacts);
             _userRepository.Delete(user);
             if (user != null)
             {
@@ -403,33 +404,36 @@ namespace TAiMStore.WebUI.Controllers
         /// получаем список всех заказов
         /// </summary>
         /// <returns>модель</returns>
-        public ActionResult OrderList()
+        public ActionResult OrderList(int page = 1)
         {
-            var userName = HttpContext.User.Identity.Name;
-            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
-            var IsAdmin = userManager.UserIsInRole(userName, ConstantStrings.AdministratorRole);
-            var IsModerator = userManager.UserIsInRole(userName, ConstantStrings.ModeratorRole);
+            var masterViewModel = new MasterPageModel();
+            var manager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
+            InitializeUsersRoles(masterViewModel, manager);
 
-            //-----------------------------------------
-            if (IsAdmin || IsModerator)
+            var ordersViewModel = new OrdersViewModel();
+            var orders = _orderRepository.GetAll();
+            var orderList = new List<OrderViewModel>();
+            
+            foreach (var order in orders)
             {
-                var masterViewModel = new MasterPageModel();
-                var ordersViewModel = new OrdersViewModel();
-                var orders = _orderRepository.GetAll();
-                var orderList = new List<OrderViewModel>();
-                foreach (var order in orders)
-                {
-                    var tmpOrder = new OrderViewModel();
-                    tmpOrder.EntityToViewModel(order);
-                    orderList.Add(tmpOrder);
-                }
-                ordersViewModel.Orders = orderList;
-                masterViewModel.OrdersViewModel = ordersViewModel;
-                masterViewModel.UserModel = userManager.GetUserViewModelByName(userName);
-                masterViewModel.UserRole = ConstantStrings.AdministratorRole;
-                return View(masterViewModel);
+                var tmpOrder = new OrderViewModel();
+                tmpOrder.EntityToViewModel(order);
+                orderList.Add(tmpOrder);
             }
-            else return RedirectToAction("List", "Product");
+            
+            var model = new OrdersViewModel
+            {
+                Orders = orderList,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = _orderRepository.GetCount()
+                }
+            };
+
+            masterViewModel.OrdersViewModel = model;
+            return View(masterViewModel);
         }
 
         /// <summary>
@@ -454,6 +458,10 @@ namespace TAiMStore.WebUI.Controllers
 
             var order = _orderRepository.GetById(orderId);
             var orderViews = new OrderViewModel();
+            if (order.Status != null)
+            {
+                OrderStatusUpdate(order, false);
+            }
             orderViews.EntityToViewModel(order);
             masterPage.OrderViewModel = orderViews;
 
@@ -495,6 +503,37 @@ namespace TAiMStore.WebUI.Controllers
             }
             _unitOfWork.Commit();
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// редактирование ордера, пока только статус. далее можно усложнить
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        public ActionResult OrderEdit(int orderId)
+        {
+            var order = _orderRepository.GetById(orderId);
+            OrderStatusUpdate(order,true);
+            return RedirectToAction("OrderList");
+        }
+
+        /// <summary>
+        /// Изменяем статус заказа на необходимый по его Id и статус
+        /// false- просмотрен
+        /// true -обработан
+        /// </summary>
+        /// <param name="order">экземпляр заказа</param>
+        /// <param name="status">статус</param>
+        private void OrderStatusUpdate(Order order, bool status)
+        {
+            if (order.Status != true)
+            {
+                order.Status = status;
+                _orderRepository.Update(order);
+                _unitOfWork.Commit();
+
+            }
         }
         #endregion
 

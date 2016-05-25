@@ -86,8 +86,7 @@ namespace TAiMStore.WebUI.Controllers
             }
             return RedirectToAction("Index", new { returnUrl });
         }
-
-        
+                
         public PartialViewResult Summary(Cart cart)
         {
             return PartialView(GetCart());
@@ -99,8 +98,7 @@ namespace TAiMStore.WebUI.Controllers
             var masterPage = new MasterPageModel();
             var orderModel = new OrderViewModel();
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
-            var shipingManager = new ShipingManager(_orderRepository,_orderProductRepository,_repository,
-                _userRepository,_paymentRepository,_roleRepository, _unitOfWork);
+            var shipingManager = new ShipingManager(_orderRepository,_orderProductRepository,_repository,_paymentRepository, _unitOfWork);
             
             var cart = GetCart();
 

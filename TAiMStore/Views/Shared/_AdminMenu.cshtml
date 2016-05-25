@@ -3,11 +3,11 @@
 
 @Html.Label("Админ-панель", new { @class = "btn-block btn-default" })
 
-@Html.ActionLink("Товары", "Index", "Admin", new { @class = "btn btn-block btn-default btn" })
-@Html.ActionLink("Категории", "Categories", "Admin", new { @class = "btn btn-block btn-default btn" })
-@Html.ActionLink("Типы оплаты", "Payments", "Admin", new { @class = "btn btn-block btn-default btn" })
-@Html.ActionLink("Заказы", "OrderList", "Admin", new { @class = "btn btn-block btn-default btn" })
+@Html.ActionLink("Товары", "Index", "Admin",null, new { @class = "btn btn-block btn-default btn" })
+@Html.ActionLink("Категории", "Categories", "Admin",null, new { @class = "btn btn-block btn-default btn" })
+@Html.ActionLink("Типы оплаты", "Payments", "Admin",null, new { @class = "btn btn-block btn-default btn" })
+@Html.ActionLink("Заказы", "OrderList", "Admin",null, new { @class = "btn btn-block btn-default btn" })
 @if (Model.UserRole == @ConstantStrings.AdministratorRole)
 {
-    @Html.ActionLink("Пользователи", "Users", "Admin", new { @class = "btn btn-block btn-default btn" })
+    @Html.ActionLink("Пользователи", "Users", "Admin",null, new { @class = "btn btn-block btn-default btn" })
 }

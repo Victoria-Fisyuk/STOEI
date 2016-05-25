@@ -22,17 +22,13 @@ namespace TAiMStore.Model.Classes
         private readonly IUnitOfWork _unitOfWork;
 
         public ShipingManager(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository,
-            IProductRepository productRepository, IUserRepository userRepository, IPaymentRepository paymentRepository,
-            IRoleRepository roleRepository, IUnitOfWork unitOfWork)
+            IProductRepository productRepository, IPaymentRepository paymentRepository, IUnitOfWork unitOfWork)
         {
             _orderRepository = orderRepository;
             _orderProductRepository = orderProductRepository;
             _productRepository = productRepository;
-            _userRepository = userRepository;
             _paymentRepository = paymentRepository;
-            _roleRepository = roleRepository;
             _unitOfWork = unitOfWork;
-            _roleRepository.GetAll();
         }
 
         public Order CheckOut(IEnumerable<CartLine> lines, string payment, decimal totalCost, User user)
@@ -48,7 +44,7 @@ namespace TAiMStore.Model.Classes
             var order = new Order()
             {
                 User = user,
-                TotalCost = (int)totalCost,
+                TotalCost = totalCost,
                 Payment = paymentManager.GetPaymentByName(payment)
             };
             _orderRepository.Add(order);
