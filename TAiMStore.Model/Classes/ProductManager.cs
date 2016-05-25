@@ -61,7 +61,7 @@ namespace TAiMStore.Model.Classes
         public ProductsViewModel GetProducts(string category, int page, int pageSize)
         {
             var key = HttpRuntime.Cache.GenerateCacheKey("GetProductsList_" + category + "_" + page.ToString());
-            return HttpRuntime.Cache.CheckCache(key, 120, () => GetProductsList(category, page, pageSize));
+            return HttpRuntime.Cache.CheckCache(key, 10, () => GetProductsList(category, page, pageSize));
         }
 
         private FileContentResult GetImageById(int id)
@@ -74,7 +74,7 @@ namespace TAiMStore.Model.Classes
         public FileContentResult GetImage(int id)
         {
             var key = HttpRuntime.Cache.GenerateCacheKey("GetImage" + id);
-            return HttpRuntime.Cache.CheckCache(key, 120, () => GetImageById(id));
+            return HttpRuntime.Cache.CheckCache(key, 60, () => GetImageById(id));
         }
 
     }

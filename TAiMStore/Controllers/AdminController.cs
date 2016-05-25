@@ -412,7 +412,6 @@ namespace TAiMStore.WebUI.Controllers
         public ActionResult EditUser(string userId, string roles, bool isActivate)
         {
             var manager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
-
             manager.UserEdit(userId, roles, isActivate);
             return RedirectToAction("Users");
         }
@@ -529,7 +528,7 @@ namespace TAiMStore.WebUI.Controllers
                 TempData["Message"] = string.Format("{0} was deleted", order.Id);
             }
             _unitOfWork.Commit();
-            return RedirectToAction("Index");
+            return RedirectToAction("OrderList");
         }
 
         /// <summary>

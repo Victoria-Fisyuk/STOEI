@@ -203,7 +203,7 @@ namespace TAiMStore.Model.Classes
                 tmp.Id = userEntity.Id;
                 tmp.Name = userEntity.Name;
                 tmp.Email = userEntity.Email;
-
+                tmp.isActivate = userEntity.isActivate;
                 var list = new List<SelectListItem>();
                 list.Add(new SelectListItem { Selected = true, Text = userEntity.Role.Name, Value = userEntity.Role.Name });
                 foreach (var role in roles)

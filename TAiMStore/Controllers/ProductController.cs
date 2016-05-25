@@ -21,7 +21,7 @@ namespace TAiMStore.Controllers
         private readonly IRoleRepository _roleRepository;
         private readonly IContactsRepository _contactsRepository;
         private readonly IUnitOfWork _unitOfWork;
-        public int PageSize = 6;
+        public int PageSize = 4;
 
 
         public ProductController(IProductRepository productsRepository, ICategoryRepository categoryRepository, IUserRepository userRepository,
@@ -43,7 +43,7 @@ namespace TAiMStore.Controllers
         /// <param name="category"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        public ActionResult List(string category, int page = 1)
+        public ViewResult List(string category, int page = 1)
         {
             var masterModel = new MasterPageModel();
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);

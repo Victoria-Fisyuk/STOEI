@@ -24,11 +24,7 @@ namespace TAiMStore.Model.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
-        [Display(Name = "Введите число с картинки")]
-        public string Captcha { get; set; }
-
-        public bool isActivate { get; set; }
+        public bool? isActivate { get; set; }
 
         public List<SelectListItem> Roles { get; set; }
     }
