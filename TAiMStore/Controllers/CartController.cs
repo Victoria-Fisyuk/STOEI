@@ -126,7 +126,7 @@ namespace TAiMStore.WebUI.Controllers
                 Cart = GetCart()
             };
             masterPage.CartView = cart;
-            if (cart.Cart.Lines.Count() == 0) return Error();
+            if (cart.Cart.Lines.Count() == 0) return View("CartError");
             return View(masterPage);
         }
 

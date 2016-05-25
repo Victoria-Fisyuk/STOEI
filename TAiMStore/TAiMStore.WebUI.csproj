@@ -189,6 +189,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\UserMenu.cshtml" />
     <Content Include="Views\Cart\Completed.cshtml" />
+    <Content Include="Views\Cart\CartError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

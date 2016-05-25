@@ -232,13 +232,20 @@ namespace TAiMStore.WebUI.Controllers
 
         public ActionResult Categories()
         {
-            var manager = new CategoryManager(_categoryRepository, _unitOfWork);
-            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
             var masterModel = new MasterPageModel();
-            masterModel.Categories = manager.GetCategories();
+            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
             InitializeUsersRoles(masterModel, userManager);
+            var IsAdmin = userManager.UserIsInRole(masterModel.UserModel.Name, ConstantStrings.AdministratorRole);
+            var IsModerator = userManager.UserIsInRole(masterModel.UserModel.Name, ConstantStrings.ModeratorRole);
 
-            return View(masterModel);
+            //-----------------------------------------
+            if (IsAdmin || IsModerator)
+            {
+                var manager = new CategoryManager(_categoryRepository, _unitOfWork);
+                masterModel.Categories = manager.GetCategories();
+                return View(masterModel);
+            }
+            else return RedirectToAction("List", "Product");
         }
 
         public ActionResult CategoryDelete(int categoryId)
@@ -290,13 +297,20 @@ namespace TAiMStore.WebUI.Controllers
 
         public ActionResult Payments()
         {
-            var manager = new PaymentManager(_paymentRepository, _unitOfWork);
-            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
             var masterModel = new MasterPageModel();
-            masterModel.Payments = manager.GetPayments();
+            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
             InitializeUsersRoles(masterModel, userManager);
+            var IsAdmin = userManager.UserIsInRole(masterModel.UserModel.Name, ConstantStrings.AdministratorRole);
+            var IsModerator = userManager.UserIsInRole(masterModel.UserModel.Name, ConstantStrings.ModeratorRole);
 
-            return View(masterModel);
+            //-----------------------------------------
+            if (IsAdmin || IsModerator)
+            {
+                var manager = new PaymentManager(_paymentRepository, _unitOfWork);
+                masterModel.Payments = manager.GetPayments();
+                return View(masterModel);
+            }
+            else return RedirectToAction("List", "Product");
         }
 
         public ActionResult PaymentDelete(int paymentId)
@@ -345,13 +359,20 @@ namespace TAiMStore.WebUI.Controllers
         #endregion
 
         #region Users
-        public ViewResult Users()
+        public ActionResult Users()
         {
-            var masterViewModel = new MasterPageModel();
-            var manager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
-            InitializeUsersRoles(masterViewModel, manager);
+            var masterModel = new MasterPageModel();
+            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
+            InitializeUsersRoles(masterModel, userManager);
+            var IsAdmin = userManager.UserIsInRole(masterModel.UserModel.Name, ConstantStrings.AdministratorRole);
+            var IsModerator = userManager.UserIsInRole(masterModel.UserModel.Name, ConstantStrings.ModeratorRole);
 
-            return View(masterViewModel);
+            //-----------------------------------------
+            if (IsAdmin || IsModerator)
+            {
+                return View(masterModel);
+            }
+            else return RedirectToAction("List", "Product");
         }
 
         private void InitializeUsersRoles(MasterPageModel masterViewModel, UserManager manager)
@@ -406,34 +427,40 @@ namespace TAiMStore.WebUI.Controllers
         /// <returns>модель</returns>
         public ActionResult OrderList(int page = 1)
         {
-            var masterViewModel = new MasterPageModel();
-            var manager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
-            InitializeUsersRoles(masterViewModel, manager);
+            var masterModel = new MasterPageModel();
+            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
+            InitializeUsersRoles(masterModel, userManager);
+            var IsAdmin = userManager.UserIsInRole(masterModel.UserModel.Name, ConstantStrings.AdministratorRole);
+            var IsModerator = userManager.UserIsInRole(masterModel.UserModel.Name, ConstantStrings.ModeratorRole);
 
-            var ordersViewModel = new OrdersViewModel();
-            var orders = _orderRepository.GetAll();
-            var orderList = new List<OrderViewModel>();
-            
-            foreach (var order in orders)
+            //-----------------------------------------
+            if (IsAdmin || IsModerator)
             {
-                var tmpOrder = new OrderViewModel();
-                tmpOrder.EntityToViewModel(order);
-                orderList.Add(tmpOrder);
-            }
-            
-            var model = new OrdersViewModel
-            {
-                Orders = orderList,
-                PagingInfo = new PagingInfo
+                var ordersViewModel = new OrdersViewModel();
+                var orders = _orderRepository.GetAll();
+                var orderList = new List<OrderViewModel>();
+
+                foreach (var order in orders)
                 {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = _orderRepository.GetCount()
+                    var tmpOrder = new OrderViewModel();
+                    tmpOrder.EntityToViewModel(order);
+                    orderList.Add(tmpOrder);
                 }
-            };
 
-            masterViewModel.OrdersViewModel = model;
-            return View(masterViewModel);
+                var model = new OrdersViewModel
+                {
+                    Orders = orderList,
+                    PagingInfo = new PagingInfo
+                    {
+                        CurrentPage = page,
+                        ItemsPerPage = PageSize,
+                        TotalItems = _orderRepository.GetCount()
+                    }
+                };
+                masterModel.OrdersViewModel = model;
+                return View(masterModel);
+            }
+            else return RedirectToAction("List", "Product");
         }
 
         /// <summary>

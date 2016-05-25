@@ -55,10 +55,28 @@
                         @using (Html.BeginForm("DeleteOrder", "Admin"))
                         {
                             @Html.Hidden("orderId", item.Id)
-                            <input type="submit" value="Delete" onclick="return confirm('Вы действительно хотите удалить данный заказ?');" class="button blue" />
+                            <input type="submit" value="Delete" onclick="return confirm('Вы действительно хотите удалить данный заказ?');" class="btn btn-danger" />
                         }
                     </td>
                 </tr>
+                <td colspan="7">
+                @using (Html.BeginForm("OrderDetail", "Admin", new { orderId = item.Id }))
+                {
+                    @Html.Hidden("orderId", item.Id)
+                    switch (@item.Status)
+                    {
+                        case true:
+                            <input type="submit" value="Подробнее ...." class="btn btn-sm btn-success" />
+                            break;
+                        case false:
+                            <input type="submit" value="Подробнее ...." class="btn btn-sm btn-warning" />
+                            break;
+                        default:
+                            <input type="submit" value="Подробнее ...." class="btn btn-sm btn-danger" />
+                            break;
+                    }
+                }
+                </td>
             }
         </table>
     </div>
