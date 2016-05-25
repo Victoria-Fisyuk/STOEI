@@ -8,11 +8,11 @@
 
 @{
     var users = new List<SelectListItem>();
-    foreach (var item in Model.OrdersViewModel.Orders)
+    foreach (var item in Model.Users)
     {
         var tmp = new SelectListItem();
-        tmp.Value = item.UserName.ToLower();
-        tmp.Text = item.UserName.ToLower();
+        tmp.Value = item.Name.ToLower();
+        tmp.Text = item.Name.ToLower();
         if (!users.Exists(c => c.Value == tmp.Value)) { users.Add(tmp); }
     }
     <div class="panel panel-default">
