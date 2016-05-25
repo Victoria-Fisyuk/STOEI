@@ -487,7 +487,7 @@ namespace TAiMStore.WebUI.Controllers
 
             var order = _orderRepository.GetById(orderId);
             var orderViews = new OrderViewModel();
-            if (order.Status != null)
+            if (order.Status == null)
             {
                 OrderStatusUpdate(order, false);
             }
