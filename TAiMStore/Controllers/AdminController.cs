@@ -359,6 +359,7 @@ namespace TAiMStore.WebUI.Controllers
         #endregion
 
         #region Users
+
         public ActionResult Users()
         {
             var masterModel = new MasterPageModel();
@@ -436,7 +437,9 @@ namespace TAiMStore.WebUI.Controllers
             if (IsAdmin || IsModerator)
             {
                 var ordersViewModel = new OrdersViewModel();
-                var orders = _orderRepository.GetAll();
+                var orders = _orderRepository.GetAll()
+                    .Skip((page - 1)*PageSize)
+                    .Take(PageSize);
                 var orderList = new List<OrderViewModel>();
 
                 foreach (var order in orders)
@@ -446,7 +449,7 @@ namespace TAiMStore.WebUI.Controllers
                     orderList.Add(tmpOrder);
                 }
 
-                var model = new OrdersViewModel
+                var ordersModel = new OrdersViewModel
                 {
                     Orders = orderList,
                     PagingInfo = new PagingInfo
@@ -456,7 +459,7 @@ namespace TAiMStore.WebUI.Controllers
                         TotalItems = _orderRepository.GetCount()
                     }
                 };
-                masterModel.OrdersViewModel = model;
+                masterModel.OrdersViewModel = ordersModel;
                 return View(masterModel);
             }
             else return RedirectToAction("List", "Product");

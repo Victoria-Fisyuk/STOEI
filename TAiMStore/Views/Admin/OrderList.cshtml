@@ -1,5 +1,6 @@
 ﻿@using TAiMStore.HtmlHelpers
-@model TAiMStore.Model.ViewModels.MasterPageModel
+@using TAiMStore.Model.ViewModels;
+@model MasterPageModel
 
 @{
     ViewBag.Title = "Заказы";
@@ -97,7 +98,7 @@
 </div>
 <center>
     <div>Cтраницы </div>
-    <div class="btn-group pull-left">
+    <div class="btn-group text-center">
         @Html.PageLinks(Model.OrdersViewModel.PagingInfo, x => Url.Action("OrderList",
                              new { page = x }))
     </div>
