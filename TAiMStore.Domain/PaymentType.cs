@@ -6,7 +6,6 @@ namespace TAiMStore.Domain
         public int Id { get; set; }
         public string NameMethod { get; set; }
 
-        //связи
         public ICollection<Order> Orders { get; set; }
     }
 }
