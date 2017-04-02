@@ -18,11 +18,6 @@
      })
      </li>
 }
-@using (Html.BeginForm("Product", "Find", FormMethod.Get, new { enctype = "multipart/form-data" }))
-{
-    <input type="text" id="name" name="searchResult" placeholder="Conference" required="" />
-    <input type="submit" value="Go!" />
-}
 <form asp-controller="Product" asp-action="List" method="get">
     <p>
         Title: <input type="text" name="searchResult">
