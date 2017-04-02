@@ -8,5 +8,6 @@ namespace TAiMStore.Model.ViewModels
         public IEnumerable<ProductViewModel> Products { get; set; }
         public PagingInfo PagingInfo { get; set; }
         public string CurrentCategory { get; set; }
+        public string SearchName { get; set; }
     }
 }

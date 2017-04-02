@@ -18,19 +18,23 @@ namespace TAiMStore.Model.Classes
             _repository = productsRepository;
         }
         
-        private ProductsViewModel GetProductsList(string category, int page, int pageSize)
+        private ProductsViewModel GetProductsList(string category, string searchResult, int page, int pageSize)
         {
             var products = _repository.GetMany(p => category == null || p.Category.Name == category)
                 .OrderBy(p => p.Id)
                 .Skip((page - 1) * pageSize)
-                .Take(pageSize);
+                .Take(pageSize).OrderBy(s => s.Price);
             var productsViewModel = new List<ProductViewModel>();
 
             foreach (var product in products)
             {
-                var productViewModel = new ProductViewModel();
-                productViewModel.EntityToProductViewModel(product);
-                productsViewModel.Add(productViewModel);
+                if (searchResult == null || product.Name == searchResult)
+                {
+                    var productViewModel = new ProductViewModel();
+                    productViewModel.EntityToProductViewModel(product);
+                    productsViewModel.Add(productViewModel);
+                }
+
             }
 
             var model = new ProductsViewModel
@@ -58,10 +62,10 @@ namespace TAiMStore.Model.Classes
             return product;
         }
 
-        public ProductsViewModel GetProducts(string category, int page, int pageSize)
+        public ProductsViewModel GetProducts(string category,string searchResult, int page, int pageSize)
         {
             var key = HttpRuntime.Cache.GenerateCacheKey("GetProductsList_" + category + "_" + page.ToString());
-            return HttpRuntime.Cache.CheckCache(key, 10, () => GetProductsList(category, page, pageSize));
+            return HttpRuntime.Cache.CheckCache(key, 10, () => GetProductsList(category, searchResult, page, pageSize));
         }
 
         private FileContentResult GetImageById(int id)

@@ -43,14 +43,27 @@ namespace TAiMStore.Controllers
         /// <param name="category"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        public ViewResult List(string category, int page = 1)
+        public ViewResult List(string category, String searchResult, int page = 1)
         {
             var masterModel = new MasterPageModel();
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
             InitializeUsersRoles(masterModel, userManager);
 
             var manager = new ProductManager(_repository);
-            var model = manager.GetProducts(category, page, PageSize);
+            var model = manager.GetProducts(category, searchResult, page, PageSize);
+            masterModel.ProductsViewModel = model;
+
+            return View(masterModel);
+        }
+
+        public ActionResult Find(string category, String searchResult, int page = 1)
+        {
+            var masterModel = new MasterPageModel();
+            var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
+            InitializeUsersRoles(masterModel, userManager);
+
+            var manager = new ProductManager(_repository);
+            var model = manager.GetProducts(category, searchResult, page, PageSize);
             masterModel.ProductsViewModel = model;
 
             return View(masterModel);

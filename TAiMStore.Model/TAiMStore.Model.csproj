@@ -92,8 +92,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CategoryRepository.cs" />
     <Compile Include="Repository\ContactsRepository.cs" />
+    <Compile Include="Repository\EmailOrderProcessor.cs" />
     <Compile Include="Repository\ICategoryRepository.cs" />
     <Compile Include="Repository\IContactsRepository.cs" />
+    <Compile Include="Repository\IOrderProcessor.cs" />
     <Compile Include="Repository\IOrderProductRepository.cs" />
     <Compile Include="Repository\IOrderRepository.cs" />
     <Compile Include="Repository\IPaymentRepository.cs" />

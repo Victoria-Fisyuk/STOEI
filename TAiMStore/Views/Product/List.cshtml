@@ -15,7 +15,7 @@
 <div>Cтраницы </div>
             <div class="btn-group pull-left">
                 @Html.PageLinks(Model.ProductsViewModel.PagingInfo, x => Url.Action("List",
-                             new { page = x, category = Model.ProductsViewModel.CurrentCategory }))
+                             new { page = x, searchName= Model.ProductsViewModel.SearchName, category = Model.ProductsViewModel.CurrentCategory }))
             </div>
 </center>
 

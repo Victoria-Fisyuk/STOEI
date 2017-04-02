@@ -24,7 +24,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav nav-tabs">
                 <li class="active">@Html.ActionLink("Главная", "List", "Product") </li>
+@if (Model.UserModel == null || Model.UserModel.Name == null) { 
                 <li>@Html.ActionLink("Регистрация", "Register", "Account") </li>
+}
             </ul>
             @if (Model.UserModel == null || Model.UserModel.Name == null)
             {

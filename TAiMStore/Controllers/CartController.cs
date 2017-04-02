@@ -21,10 +21,11 @@ namespace TAiMStore.WebUI.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderProductRepository _orderProductRepository;
+        private readonly IOrderProcessor _orderProcessor;
 
         public CartController(IProductRepository productRepository, ICategoryRepository categoryRepository, IUserRepository userRepository,
             IPaymentRepository paymentRepository, IRoleRepository roleRepository, IContactsRepository contactsRepository,
-            IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IUnitOfWork unitOfWork)
+            IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IOrderProcessor orderProcessor, IUnitOfWork unitOfWork)
         {
             _repository = productRepository;
             _categoryRepository = categoryRepository;
@@ -35,6 +36,7 @@ namespace TAiMStore.WebUI.Controllers
             _orderRepository = orderRepository;
             _orderProductRepository = orderProductRepository;
             _unitOfWork = unitOfWork;
+            _orderProcessor = orderProcessor;
             categoryRepository.GetAll();
         }
 
@@ -62,18 +64,42 @@ namespace TAiMStore.WebUI.Controllers
             return View(masterPage);
         }
 
-        public RedirectToRouteResult AddToCart(int Id, string returnUrl)
+        //public RedirectToRouteResult AddToCart(int Id, string returnUrl)
+        //{
+        //    Product product = _repository.GetById(Id);
+        //    if (HttpContext.User.Identity.IsAuthenticated)
+        //    {
+        //        if (product != null)
+        //        {
+        //            GetCart().AddItem(product, 1);
+        //        }
+        //        return RedirectToAction("Index", new { returnUrl });
+        //    } 
+        //    else  return RedirectToAction("Error", new { returnUrl });
+        //}
+
+        public RedirectToRouteResult AddToCart(int Id, string countProduct, string returnUrl)
         {
             Product product = _repository.GetById(Id);
+            int count = 0;
+            if (countProduct != null)
+            {
+                count = int.Parse(countProduct);
+            }
+            else
+            {
+                count = 1;
+            }
+
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                if (product != null)
+                if (product != null && count > 0)
                 {
-                    GetCart().AddItem(product, 1);
-                }
+                    GetCart().AddItem(product, count);
+                } else return RedirectToAction("Error", new { returnUrl });
                 return RedirectToAction("Index", new { returnUrl });
-            } 
-            else  return RedirectToAction("Error", new { returnUrl });
+            }
+            else return RedirectToAction("Error", new { returnUrl });
         }
 
         public RedirectToRouteResult RemoveFromCart(int Id, string returnUrl)
@@ -98,7 +124,7 @@ namespace TAiMStore.WebUI.Controllers
             var masterPage = new MasterPageModel();
             var orderModel = new OrderViewModel();
             var userManager = new UserManager(_userRepository, _roleRepository, _contactsRepository, _unitOfWork);
-            var shipingManager = new ShipingManager(_orderRepository,_orderProductRepository,_repository,_paymentRepository, _unitOfWork);
+            var shipingManager = new ShipingManager(_orderRepository,_orderProductRepository,_repository,_paymentRepository, _orderProcessor, _unitOfWork);
             
             var cart = GetCart();
 

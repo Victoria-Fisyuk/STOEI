@@ -17,7 +17,7 @@ namespace TAiMStore.Configs
             builder.RegisterControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
             builder.RegisterType<Factory>().As<IFactory>().InstancePerHttpRequest();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerHttpRequest();
-
+            builder.RegisterType<EmailOrderProcessor>().As<IOrderProcessor>().InstancePerHttpRequest();
 
             builder.RegisterAssemblyTypes(typeof(ProductRepository).Assembly)
                   .Where(t => t.Name.EndsWith(repository))

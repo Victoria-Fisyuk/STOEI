@@ -20,14 +20,17 @@ namespace TAiMStore.Model.Classes
         private readonly IPaymentRepository _paymentRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IOrderProcessor _orderProcessor;
 
         public ShipingManager(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository,
-            IProductRepository productRepository, IPaymentRepository paymentRepository, IUnitOfWork unitOfWork)
+            IProductRepository productRepository, IPaymentRepository paymentRepository, IOrderProcessor orderProcessor,
+            IUnitOfWork unitOfWork)
         {
             _orderRepository = orderRepository;
             _orderProductRepository = orderProductRepository;
             _productRepository = productRepository;
             _paymentRepository = paymentRepository;
+            _orderProcessor = orderProcessor;
             _unitOfWork = unitOfWork;
         }
 
@@ -35,6 +38,7 @@ namespace TAiMStore.Model.Classes
         {
             var tmpOrder = SetOrder(user, totalCost, payment);
             SetOrderProduct(lines, tmpOrder);
+            _orderProcessor.ProcessOrder(lines, tmpOrder);
             return tmpOrder;
         }
 
@@ -65,6 +69,7 @@ namespace TAiMStore.Model.Classes
                 };
                 _orderProductRepository.Add(orderProduct);
             }
+
             _unitOfWork.Commit();
         }
     }

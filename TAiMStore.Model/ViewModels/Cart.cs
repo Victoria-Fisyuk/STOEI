@@ -8,7 +8,6 @@ namespace TAiMStore.Model.ViewModels
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
-
     }
 
     public class Cart
