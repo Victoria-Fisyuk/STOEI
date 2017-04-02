@@ -21,7 +21,7 @@ namespace TAiMStore.Model.Repository
         public string ServerName = "smtp.example.com";
         public int ServerPort = 587;
         public bool WriteAsFile = true;
-        public string FileLocation = @"~/AppData/sports_store_emails";
+        public string FileLocation = @"~/emails/";
     }
 
     public class EmailOrderProcessor : IOrderProcessor
@@ -46,7 +46,6 @@ namespace TAiMStore.Model.Repository
             {
                 if (emailSettings.WriteAsFile)
                 {
-                    string str = HttpContext.Current.Server.MapPath(emailSettings.FileLocation);
                     smtpClient.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
                     smtpClient.PickupDirectoryLocation = HttpContext.Current.Server.MapPath(emailSettings.FileLocation);
                     smtpClient.EnableSsl = false;
@@ -84,9 +83,18 @@ namespace TAiMStore.Model.Repository
                     mailMessage.BodyEncoding = Encoding.ASCII;
                 }
 
-
+                try
+        {
                 smtpClient.Send(mailMessage);
-            }
         }
+                catch (Exception ex)
+                {
+                    string error = "" + ex.Message;
+                }
+            }
+        
+        }
+
+       
     }
 }
